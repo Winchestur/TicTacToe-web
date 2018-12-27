@@ -1,1 +1,4 @@
-/test/test/new!
+/.idea/**
+Morskishah.iml
+/target/**
+/out/**
