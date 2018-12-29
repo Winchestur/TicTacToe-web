@@ -4,6 +4,9 @@
             <img class="mb-2" src="{{ path('/favicon.ico') }}" alt="" width="24" height="24">
             Tic Tac Toe
             <small class="d-block mb-3 text-muted">© 2018</small>
+            <span>
+                {% embed '../lang/' ~ locale ~ '/footer-msg.twig' %} {% endembed %}
+            </span>
         </div>
         <div class="col-6 col-md">
             <h5>Menu</h5>
