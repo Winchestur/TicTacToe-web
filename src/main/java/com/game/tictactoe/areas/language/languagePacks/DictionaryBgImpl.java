@@ -7,6 +7,11 @@ public class DictionaryBgImpl implements Dictionary {
     public static final String HOME = "Начало";
     public static final String LOGIN = "Вход";
     public static final String REGISTER = "Регистрация";
+    public static final String LOGOUT = "Изход";
+
+    public String logout() {
+        return LOGOUT;
+    }
 
     public String register() {
         return REGISTER;

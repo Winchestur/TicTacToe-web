@@ -11,4 +11,6 @@ public interface Dictionary {
     String login();
 
     String register();
+
+    String logout();
 }

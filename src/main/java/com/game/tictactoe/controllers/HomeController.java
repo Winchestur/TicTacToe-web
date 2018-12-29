@@ -28,6 +28,6 @@ public class HomeController {
 
         model.addAttribute("hora", people);
 
-        return "template:home.twig";
+        return "template:default/index.twig";
     }
 }

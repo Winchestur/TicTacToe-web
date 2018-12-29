@@ -6,6 +6,11 @@ public class DictionaryEnImpl implements Dictionary {
     public static final String HOME = "Home";
     public static final String LOGIN = "Login";
     public static final String REGISTER = "Register";
+    public static final String LOGOUT = "Logout";
+
+    public String logout() {
+        return LOGOUT;
+    }
 
     public String register() {
         return REGISTER;

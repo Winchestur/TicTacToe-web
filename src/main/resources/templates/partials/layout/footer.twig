@@ -1,0 +1,63 @@
+<footer class="pt-4 my-md-5 pt-md-5 border-top container">
+    <div class="row">
+        <div class="col-12 col-md">
+            <img class="mb-2" src="{{ path('/favicon.ico') }}" alt="" width="24" height="24">
+            Tic Tac Toe
+            <small class="d-block mb-3 text-muted">© 2018</small>
+        </div>
+        <div class="col-6 col-md">
+            <h5>Menu</h5>
+            <ul class="list-unstyled text-small">
+                <li>
+                    <label>BG
+                        <input type="radio" name="lang" value="bg">
+                    </label>
+                    <label>EN
+                        <input type="radio" name="lang" value="en">
+                    </label>
+                </li>
+                <li>
+                    <a class="text-muted" href="{{ path("/") }}">{{ dict.home }}</a>
+                </li>
+                {% if hasRole("ROLE_USER") %}
+                    <li>
+                        <a class="text-muted" href="{{ path("/logout") }}">{{ user.username }}</a>
+                    </li>
+                    <li>
+                        <a class="text-muted" href="{{ path("/logout") }}">{{ dict.logout }}</a>
+                    </li>
+                    {% if hasRole('ROLE_ADMIN') %}
+                        <li>
+                            <a class="text-muted" href="{{ path("/admin/panel") }}">Admin Panel</a>
+                        </li>
+                    {% endif %}
+                {% else %}
+                    <li>
+                        <a class="text-muted" href="{{ path("/login") }}">{{ dict.login }}</a>
+                    </li>
+                    <li>
+                        <a class="text-muted" href="{{ path("/register") }}">{{ dict.register }}</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="col-6 col-md">
+            <h5>Resources</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="text-muted" href="#">Resource</a></li>
+                <li><a class="text-muted" href="#">Resource name</a></li>
+                <li><a class="text-muted" href="#">Another resource</a></li>
+                <li><a class="text-muted" href="#">Final resource</a></li>
+            </ul>
+        </div>
+        <div class="col-6 col-md">
+            <h5>About</h5>
+            <ul class="list-unstyled text-small">
+                <li><a class="text-muted" href="#">Team</a></li>
+                <li><a class="text-muted" href="#">Locations</a></li>
+                <li><a class="text-muted" href="#">Privacy</a></li>
+                <li><a class="text-muted" href="#">Terms</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>

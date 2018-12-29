@@ -1,0 +1,42 @@
+{# the lang variable comes from the LocalLanguage service #}
+{% set dict = lang.dictionary %}
+{% set locale = lang.locale %}
+<!DOCTYPE html>
+<html lang="{{ locale }}">
+<head>
+    <!-- title -->
+    <title>{% block wholeTitle %}Tic Tac Toe - {% block title %}{% endblock %}{% endblock %}</title>
+
+    <!-- metas -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- css -->
+    {% embed 'partials/layout/stylesheets.twig' %} {% endembed %}
+    {% block stylesheets %}{% endblock %}
+
+</head>
+
+<body>
+{% embed 'partials/layout/header.twig' %} {% endembed %}
+
+{% block fullBody %}
+    {# use fullBody if you want your html to stretch accross the page #}
+    <div class="container">
+        {% block body %}{% endblock %}
+    </div>
+{% endblock %}
+
+{% embed 'partials/layout/footer.twig' %} {% endembed %}
+</body>
+
+<!-- scripts -->
+<script descr="TWIG_CONSTANTS">
+    var CURRENT_URL = '{{ request.relativeRequestURL }}';
+</script>
+
+{% embed 'partials/layout/scripts.twig' %} {% endembed %}
+{% block javascripts %}{% endblock %}
+
+</html>

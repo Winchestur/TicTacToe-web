@@ -33,18 +33,18 @@ public class LocaleInterceptor implements InterceptorAdapter {
         if (request.getQueryParameters().containsKey(Constants.COOKIE_LANG_NAME)) {
             LanguageLocaleType localeType = Arrays.stream(LanguageLocaleType.values())
                     .filter(lt -> lt.name().equalsIgnoreCase(request.getQueryParameters().get(Constants.COOKIE_LANG_NAME)))
-                    .findFirst().orElse(LanguageLocaleType.EN);
+                    .findFirst().orElse(LanguageLocaleType.DEFAULT);
             this.localLanguage.updateLanguage(localeType);
             return true;
         }
 
         Method method = ((ActionMethod) handler).getMethod();
-        if (!method.isAnnotationPresent(LocalLang.class)) {
-            this.localLanguage.updateLanguage(this.extractLangFromCookie(request, response));
+        if (method.isAnnotationPresent(LocalLang.class)) {
+            this.localLanguage.updateLanguage(method.getAnnotation(LocalLang.class).langType());
             return true;
         }
 
-        this.localLanguage.updateLanguage(method.getAnnotation(LocalLang.class).langType());
+        this.localLanguage.updateLanguage(this.extractLangFromCookie(request, response));
         return true;
     }
 
@@ -67,6 +67,7 @@ public class LocaleInterceptor implements InterceptorAdapter {
         LanguageLocaleType localeType = Arrays.stream(LanguageLocaleType.values())
                 .filter(lt -> lt.name().equals(cookie.getValue().toUpperCase()))
                 .findFirst().orElse(null);
+
         if (localeType == null) {
             this.initCookie(response);
             return LanguageLocaleType.DEFAULT;
