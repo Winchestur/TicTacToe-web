@@ -1,1 +1,8 @@
 <h1>text</h1>
+<p>{{ lang.dictionary.login }}</p>
+<p>{{ lang.forName('Zdrasti kaksi') }}</p>
+<p>{{ lang.forName('home') }}</p>
+
+{% for person in hora %}
+    <p>{{ lang.forName(person) }}</p>
+{% endfor %}
