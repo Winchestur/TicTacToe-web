@@ -22,8 +22,8 @@
                         {% embed '../field-err.twig' with {'fieldName':'password'} %} {% endembed %}
                     </div>
                     <div class="form-group">
-                        <input type="hidden" name="callback"
-                               value="{% if model.callback %}{{ model.callback }}{% else %}{{ callback }}{% endif %}">
+                        <input type="hidden" name="referrer"
+                               value="{{ model.referrer }}">
                         <button type="submit" class="btn btn-outline-success">{{ dict.login }}</button>
                     </div>
                 </form>
