@@ -8,6 +8,26 @@ public class DictionaryBgImpl implements Dictionary {
     public static final String LOGIN = "Вход";
     public static final String REGISTER = "Регистрация";
     public static final String LOGOUT = "Изход";
+    public static final String USERNAME = "Потр. Име";
+    public static final String PASSWORD = "Парола";
+    public static final String EMAIL = "Email";
+    public static final String PASSWORD_AGAIN = "Парола отново";
+
+    public String username() {
+        return USERNAME;
+    }
+
+    public String password() {
+        return PASSWORD;
+    }
+
+    public String email() {
+        return EMAIL;
+    }
+
+    public String passwordAgain() {
+        return PASSWORD_AGAIN;
+    }
 
     public String logout() {
         return LOGOUT;

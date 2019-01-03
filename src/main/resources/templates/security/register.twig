@@ -1,0 +1,43 @@
+{% extends '../base-layout.twig' %}
+
+{% block title %}{{ dict.register }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <hr>
+
+                <form method="post" action="{{ path("/register") }}">
+                    <div class="form-group">
+                        <label for="username">{{ dict.username }}</label>
+                        <input type="text" name="username" id="username" value="{{ model.username }}" required
+                               class="form-control" placeholder="{{ dict.username }}">
+                        {% embed '../field-err.twig' with {'fieldName':'username'} %} {% endembed %}
+                    </div>
+                    <div class="form-group">
+                        <label for="email">{{ dict.email }}</label>
+                        <input type="email" name="email" id="email" value="{{ model.email }}" required
+                               class="form-control" placeholder="example@domain.com">
+                        {% embed '../field-err.twig' with {'fieldName':'email'} %} {% endembed %}
+                    </div>
+                    <div class="form-group">
+                        <label for="password">{{ dict.password }}</label>
+                        <input type="password" name="password" id="password" required class="form-control"
+                               placeholder="******">
+                        {% embed '../field-err.twig' with {'fieldName':'password'} %} {% endembed %}
+                    </div>
+                    <div class="form-group">
+                        <label for="pass-again">{{ dict.passwordAgain }}</label>
+                        <input type="password" name="passwordConfirm" id="pass-again" required class="form-control"
+                               placeholder="******">
+                        {% embed '../field-err.twig' with {'fieldName':'passwordConfirm'} %} {% endembed %}
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-outline-dark">{{ dict.register }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

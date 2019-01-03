@@ -1,0 +1,33 @@
+{% extends '../base-layout.twig' %}
+
+{% block title %}{{ dict.login }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <form method="post" action="{{ path("/login") }}">
+                    <div class="form-group">
+                        <label for="username">{{ dict.username }}</label>
+                        <input type="text" name="username" id="username"
+                               value="{% if model.username.username %}{{ model.username.username }}{% else %}{{ model.username }}{% endif %}"
+                               required
+                               class="form-control" placeholder="{{ dict.username }}">
+                        {% embed '../field-err.twig' with {'fieldName':'username'} %} {% endembed %}
+                    </div>
+                    <div class="form-group">
+                        <label for="password">{{ dict.password }}</label>
+                        <input type="password" name="password" id="password" required class="form-control"
+                               placeholder="{{ dict.password }}">
+                        {% embed '../field-err.twig' with {'fieldName':'password'} %} {% endembed %}
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" name="callback"
+                               value="{% if model.callback %}{{ model.callback }}{% else %}{{ callback }}{% endif %}">
+                        <button type="submit" class="btn btn-outline-success">{{ dict.login }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
