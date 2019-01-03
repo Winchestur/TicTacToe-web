@@ -1,8 +1,8 @@
 package com.game.tictactoe.repositories;
 
 import com.game.tictactoe.repositories.utils.ActionInvoker;
-import com.game.tictactoe.repositories.utils.RepositoryActionResult;
-import com.game.tictactoe.repositories.utils.RepositoryActionResultImpl;
+import com.game.tictactoe.repositories.utils.ActionResult;
+import com.game.tictactoe.repositories.utils.ActionResultImpl;
 
 import javax.persistence.*;
 
@@ -43,8 +43,8 @@ public abstract class BaseRepository {
         }));
     }
 
-    protected synchronized RepositoryActionResult execute(ActionInvoker invoker) {
-        RepositoryActionResult actionResult = new RepositoryActionResultImpl();
+    protected synchronized ActionResult execute(ActionInvoker invoker) {
+        ActionResult actionResult = new ActionResultImpl();
 
         EntityTransaction transaction = this.entityManager.getTransaction();
 

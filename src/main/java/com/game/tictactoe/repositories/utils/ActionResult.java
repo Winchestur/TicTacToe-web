@@ -1,6 +1,6 @@
 package com.game.tictactoe.repositories.utils;
 
-public interface RepositoryActionResult {
+public interface ActionResult {
 
     <T> T getResult();
 
