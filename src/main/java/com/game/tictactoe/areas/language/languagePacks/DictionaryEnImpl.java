@@ -11,6 +11,16 @@ public class DictionaryEnImpl implements Dictionary {
     public static final String PASSWORD = "Password";
     public static final String EMAIL = "Email";
     public static final String PASSWORD_AGAIN = "Password Again";
+    public static final String LANGUAGE = "Language";
+    public static final String CHOOSE = "Choose";
+
+    public String choose() {
+        return CHOOSE;
+    }
+
+    public String language() {
+        return LANGUAGE;
+    }
 
     public String username() {
         return USERNAME;

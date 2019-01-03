@@ -12,6 +12,16 @@ public class DictionaryBgImpl implements Dictionary {
     public static final String PASSWORD = "Парола";
     public static final String EMAIL = "Email";
     public static final String PASSWORD_AGAIN = "Парола отново";
+    public static final String LANGUAGE = "Език";
+    public static final String CHOOSE = "Избери";
+
+    public String choose() {
+        return CHOOSE;
+    }
+
+    public String language() {
+        return LANGUAGE;
+    }
 
     public String username() {
         return USERNAME;

@@ -1,7 +1,7 @@
 User Related
 	Register/Login
 		create login/register views																											-> Cyecize In Progress
-		create user entity / binding models for login/register
+		create user entity / binding models for login/register																				-> Cyecize In Progress
 		validate login/register
 	
 	Personal Settings

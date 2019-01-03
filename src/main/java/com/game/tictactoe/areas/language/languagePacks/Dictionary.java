@@ -21,4 +21,8 @@ public interface Dictionary {
     String email();
 
     String passwordAgain();
+
+    String language();
+
+    String choose();
 }
