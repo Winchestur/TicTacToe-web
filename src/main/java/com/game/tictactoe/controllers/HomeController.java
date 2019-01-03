@@ -3,13 +3,14 @@ package com.game.tictactoe.controllers;
 import com.cyecize.summer.common.annotations.Controller;
 import com.cyecize.summer.common.annotations.routing.GetMapping;
 import com.cyecize.summer.common.models.Model;
+import com.cyecize.summer.common.models.ModelAndView;
 import com.game.tictactoe.areas.language.services.LocalLanguage;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class HomeController {
+public class HomeController extends BaseController{
 
     private final LocalLanguage localLanguage;
 
@@ -18,7 +19,7 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String indexAction(Model model) {
+    public ModelAndView indexAction(Model model) {
 
         List<String> people = new ArrayList<>();
         people.add("Ivan");
@@ -28,6 +29,6 @@ public class HomeController {
 
         model.addAttribute("hora", people);
 
-        return "template:default/index.twig";
+        return super.view("default/index.twig");
     }
 }

@@ -1,0 +1,6 @@
+{# This file is to be embedded below each field with the proper name to display errors #}
+{# Calls formErrors, which is a custom twig function for SUMMER MVC and passes a fieldName as param #}
+{# Then uses LocalLanguage's forName method to try and translate the error if a method with that name is present #}
+{% for err in formErrors(fieldName) %}
+    <p class="text-danger">{{ lang.forName(err.message) }}</p>
+{% endfor %}

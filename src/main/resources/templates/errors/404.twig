@@ -1,0 +1,10 @@
+{% extends '../base-layout.twig' %}
+
+{% block title %}Not Found - Internationalize!!!!!!!{% endblock %}
+
+{% block body %}
+    <h1>Not Found!</h1>
+    <p>TODO: Edit this page!</p>
+    <p>You requested this url: {{ exception.message }}</p>
+    <p>This url: {{ request.requestURL }}</p>
+{% endblock %}
