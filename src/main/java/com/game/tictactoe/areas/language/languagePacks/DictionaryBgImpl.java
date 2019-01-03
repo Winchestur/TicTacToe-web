@@ -8,6 +8,41 @@ public class DictionaryBgImpl implements Dictionary {
     public static final String LOGIN = "Вход";
     public static final String REGISTER = "Регистрация";
     public static final String LOGOUT = "Изход";
+    public static final String USERNAME = "Потр. Име";
+    public static final String PASSWORD = "Парола";
+    public static final String EMAIL = "Email";
+    public static final String PASSWORD_AGAIN = "Парола отново";
+    public static final String LANGUAGE = "Език";
+    public static final String CHOOSE = "Избери";
+    public static final String FIELD_CANNOT_BE_EMPTY = "Полето не може да бъде празно";
+
+    public String fieldCannotBeEmpty() {
+        return FIELD_CANNOT_BE_EMPTY;
+    }
+
+    public String choose() {
+        return CHOOSE;
+    }
+
+    public String language() {
+        return LANGUAGE;
+    }
+
+    public String username() {
+        return USERNAME;
+    }
+
+    public String password() {
+        return PASSWORD;
+    }
+
+    public String email() {
+        return EMAIL;
+    }
+
+    public String passwordAgain() {
+        return PASSWORD_AGAIN;
+    }
 
     public String logout() {
         return LOGOUT;

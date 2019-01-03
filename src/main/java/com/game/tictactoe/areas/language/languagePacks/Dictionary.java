@@ -13,4 +13,18 @@ public interface Dictionary {
     String register();
 
     String logout();
+
+    String username();
+
+    String password();
+
+    String email();
+
+    String passwordAgain();
+
+    String language();
+
+    String choose();
+
+    String fieldCannotBeEmpty();
 }

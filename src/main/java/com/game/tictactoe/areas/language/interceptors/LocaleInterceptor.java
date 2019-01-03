@@ -7,6 +7,7 @@ import com.cyecize.solet.HttpSoletResponse;
 import com.cyecize.summer.areas.routing.models.ActionMethod;
 import com.cyecize.summer.common.annotations.Component;
 import com.cyecize.summer.common.extensions.InterceptorAdapter;
+import com.cyecize.summer.common.models.Model;
 import com.game.tictactoe.areas.language.Constants;
 import com.game.tictactoe.areas.language.annotations.LocalLang;
 import com.game.tictactoe.areas.language.enums.LanguageLocaleType;
@@ -46,6 +47,13 @@ public class LocaleInterceptor implements InterceptorAdapter {
 
         this.localLanguage.updateLanguage(this.extractLangFromCookie(request, response));
         return true;
+    }
+
+    @Override
+    public void postHandle(HttpSoletRequest request, HttpSoletResponse response, Object handler, Model model) {
+        HttpCookie cookie = new HttpCookieImpl(Constants.COOKIE_LANG_NAME, this.localLanguage.locale());
+        cookie.setPath("/");
+        response.addCookie(cookie);
     }
 
     private LanguageLocaleType extractLangFromCookie(HttpSoletRequest request, HttpSoletResponse response) {
