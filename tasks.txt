@@ -1,0 +1,29 @@
+User Related
+	Register/Login
+		create login/register views
+		create user entity / binding models for login/register
+		validate login/register
+	
+	Personal Settings
+		Create user panel with options on the right.
+		Change password
+		Change language
+		/*Remove account*/
+		
+	Functionality
+		User cannot register with existing username/email
+		Opon successful login, language should be set to the user's chosen lang.
+		
+	Validations
+		register
+			unique username/email
+			username may only contain letters, digits, dash and underscore
+			password length at least 6 characters
+			valid email format - digitsNUmbers@domain.suffix
+			password and confirm password should match
+			
+		login
+			create custom constraint "@ValidPassword" that will validate the password using BCrypt
+		
+		html
+			all errors should be displayed under their respective field.
