@@ -1,9 +1,9 @@
 package com.game.tictactoe.repositories.utils;
 
-public class RepositoryActionResultImpl implements RepositoryActionResult {
+public class ActionResultImpl implements ActionResult {
     private Object result;
 
-    public RepositoryActionResultImpl(){ }
+    public ActionResultImpl(){ }
 
     public Object getResult() {
         return result;
