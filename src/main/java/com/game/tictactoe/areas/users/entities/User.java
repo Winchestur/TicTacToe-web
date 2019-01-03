@@ -1,15 +1,19 @@
 package com.game.tictactoe.areas.users.entities;
 
 import com.cyecize.summer.areas.security.interfaces.GrantedAuthority;
+import com.cyecize.summer.areas.security.interfaces.UserDetails;
+import com.game.tictactoe.areas.language.entities.Language;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +31,10 @@ public class User {
 
     @Column(name = "date_registered", nullable = false)
     private LocalDateTime dateRegistered;
+
+    @ManyToOne(targetEntity = Language.class)
+    @JoinColumn(name = "language_id", nullable = false, referencedColumnName = "id")
+    private Language language;
 
     @ManyToMany(targetEntity = Role.class, cascade = CascadeType.REMOVE)
     @JoinTable(name = "users_roles",
@@ -67,6 +75,12 @@ public class User {
         return password;
     }
 
+    @Override
+    @Transient
+    public Collection<GrantedAuthority> getAuthorities() {
+        return this.roles;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -79,11 +93,33 @@ public class User {
         this.dateRegistered = dateRegistered;
     }
 
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
+
     public List<GrantedAuthority> getRoles() {
         return roles;
     }
 
     public void setRoles(List<GrantedAuthority> roles) {
         this.roles = roles;
+    }
+
+    @Transactional
+    public void addRole(Role role) {
+        if (this.roles.stream().anyMatch(r -> r.getAuthority().equalsIgnoreCase(role.getAuthority())))
+            return;
+        this.roles.add(role);
+    }
+
+    @Transactional
+    public void removeRole(Role role) {
+        if (!this.roles.contains(role))
+            return;
+        this.roles.remove(role);
     }
 }

@@ -14,6 +14,11 @@ public class DictionaryBgImpl implements Dictionary {
     public static final String PASSWORD_AGAIN = "Парола отново";
     public static final String LANGUAGE = "Език";
     public static final String CHOOSE = "Избери";
+    public static final String FIELD_CANNOT_BE_EMPTY = "Полето не може да бъде празно";
+
+    public String fieldCannotBeEmpty() {
+        return FIELD_CANNOT_BE_EMPTY;
+    }
 
     public String choose() {
         return CHOOSE;

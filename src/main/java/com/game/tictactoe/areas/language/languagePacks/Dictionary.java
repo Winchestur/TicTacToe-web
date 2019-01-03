@@ -25,4 +25,6 @@ public interface Dictionary {
     String language();
 
     String choose();
+
+    String fieldCannotBeEmpty();
 }
