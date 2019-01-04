@@ -13,5 +13,5 @@ public interface LanguageService {
 
     Language findByLocaleType(LanguageLocaleType localeType);
 
-    List<Language> findALl();
+    List<Language> findAll();
 }

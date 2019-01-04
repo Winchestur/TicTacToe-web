@@ -71,7 +71,7 @@ public class SecurityController extends BaseController {
 
     @GetMapping("/register")
     public ModelAndView registerGetAction() {
-        return super.view("security/register.twig", "languages", this.languageService.findALl());
+        return super.view("security/register.twig", "languages", this.languageService.findAll());
     }
 
     @PostMapping("/register")

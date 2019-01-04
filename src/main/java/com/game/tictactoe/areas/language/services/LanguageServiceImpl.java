@@ -54,7 +54,7 @@ public class LanguageServiceImpl implements LanguageService {
     }
 
     @Override
-    public List<Language> findALl() {
+    public List<Language> findAll() {
         return this.repository.findAll();
     }
 }
