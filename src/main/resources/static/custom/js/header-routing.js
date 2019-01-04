@@ -6,6 +6,7 @@ $(function () {
 
     headerLinks.each(function (number, link) {
         link = $(link);
+        link.addClass('smooth');
         if (link.attr('href') === CURRENT_URL) {
             link.parent().addClass('active');
         }
