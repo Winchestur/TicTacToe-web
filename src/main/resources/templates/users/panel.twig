@@ -13,7 +13,34 @@
                 {% endblock %}
             </div>
         </div>
-       {% embed '../sidebar.twig' %} {% endembed %}
+        {% embed '../sidebar.twig' %}
+            {% block sidebarBody %}
+                <section class="sidebar-item">
+                    <h4>Change me</h4>
+                    <div class="list-group">
+                        <a class="list-group-item list-group-item-action" href="{{ path('edit_password') }}">
+                            {{ dict.changePassword }}Change Password
+                        </a>
+                        <a class="list-group-item list-group-item-action" href="{{ path('remove_account') }}">
+                            {{ dict.removeAccount }} Something do
+                        </a>
+                    </div>
+                </section>
+
+                <section class="sidebar-item">
+                    <h4>Change me too</h4>
+                    <div>
+                        <a class="list-group-item list-group-item-action" href="{{ path('edit_password') }}">
+                            {{ dict.changePassword }}Change Password
+                        </a>
+                        <a class="list-group-item list-group-item-action" href="{{ path('remove_account') }}">
+                            {{ dict.removeAccount }} Do something
+                        </a>
+                    </div>
+                </section>
+
+            {% endblock %}
+        {% endembed %}
     </div>
 {% endblock %}
 
