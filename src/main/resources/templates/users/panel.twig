@@ -1,0 +1,31 @@
+{% extends '../base-layout.twig' %}
+
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block body %}
+    <div class="row mt-2 pt-2">
+        <div class="col-lg-9">
+            <h3>{% block sectionTitle %}{{ user.username }}{% endblock %}</h3>
+            <hr>
+            <div class="bg-gray p-1 rounded-5" id="mainPanelContent" style="display: none;">
+                {% block sectionBody %}
+                    {% embed 'lang/' ~ locale ~ '/profile-panel-text.twig' %} {% endembed %}
+                {% endblock %}
+            </div>
+        </div>
+       {% embed '../sidebar.twig' %} {% endembed %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(function () {
+            $('#mainPanelContent').show(300);
+        });
+    </script>
+
+    {% block sectionScripts %}
+
+    {% endblock %}
+
+{% endblock %}
