@@ -14,6 +14,21 @@ public class DictionaryEnImpl implements Dictionary {
     public static final String LANGUAGE = "Language";
     public static final String CHOOSE = "Choose";
     public static final String FIELD_CANNOT_BE_EMPTY = "Field cannot be empty";
+    public static final String EDIT = "Edit";
+    public static final String SAVE = "Save";
+    public static final String CHANGES_WERE_SAVED = "Changes were saved";
+
+    public String changesWereSaved() {
+        return CHANGES_WERE_SAVED;
+    }
+
+    public String save() {
+        return SAVE;
+    }
+
+    public String edit() {
+        return EDIT;
+    }
 
     public String fieldCannotBeEmpty() {
         return FIELD_CANNOT_BE_EMPTY;

@@ -1,10 +1,18 @@
 package com.game.tictactoe.areas.users.controllers;
 
 import com.cyecize.summer.areas.security.annotations.PreAuthorize;
+import com.cyecize.summer.areas.security.models.Principal;
+import com.cyecize.summer.areas.validation.annotations.Valid;
+import com.cyecize.summer.areas.validation.interfaces.BindingResult;
 import com.cyecize.summer.common.annotations.Controller;
 import com.cyecize.summer.common.annotations.routing.GetMapping;
+import com.cyecize.summer.common.annotations.routing.PostMapping;
 import com.cyecize.summer.common.models.ModelAndView;
+import com.cyecize.summer.common.models.RedirectAttributes;
 import com.game.tictactoe.areas.language.services.LanguageService;
+import com.game.tictactoe.areas.language.services.LocalLanguage;
+import com.game.tictactoe.areas.users.bindingModels.LanguageBindingModel;
+import com.game.tictactoe.areas.users.services.UserService;
 import com.game.tictactoe.controllers.BaseController;
 
 import static com.cyecize.summer.areas.security.enums.AuthorizationType.*;
@@ -13,10 +21,18 @@ import static com.cyecize.summer.areas.security.enums.AuthorizationType.*;
 @PreAuthorize(LOGGED_IN)
 public class UserProfileController extends BaseController {
 
+    private static final String SUCCESS_MSG_PANEL_VAR_NAME = "successMsg";
+
+    private final UserService userService;
+
     private final LanguageService languageService;
 
-    public UserProfileController(LanguageService languageService) {
+    private final LocalLanguage localLanguage;
+
+    public UserProfileController(UserService userService, LanguageService languageService, LocalLanguage localLanguage) {
+        this.userService = userService;
         this.languageService = languageService;
+        this.localLanguage = localLanguage;
     }
 
     @GetMapping("/user/profile")
@@ -29,4 +45,22 @@ public class UserProfileController extends BaseController {
         return super.view("users/language/change-language.twig", "languages", this.languageService.findAll());
     }
 
+    @PostMapping("/user/language/edit")
+    public ModelAndView changeLanguagePostAction(@Valid LanguageBindingModel bindingModel, BindingResult result, RedirectAttributes redirectAttributes, Principal principal) {
+        if (result.hasErrors()) {
+            return super.redirect("/user/language/edit");
+        }
+
+        this.userService.changeLanguage(this.userService.findOneByUsername(principal.getUser().getUsername()), bindingModel.getLanguage());
+        this.localLanguage.updateLanguage(bindingModel.getLanguage().getLocaleType());
+
+        this.addSuccessMessage(this.localLanguage.dictionary().changesWereSaved(), redirectAttributes);
+
+        return super.redirect("/user/profile");
+    }
+
+
+    private void addSuccessMessage(String message, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addAttribute(SUCCESS_MSG_PANEL_VAR_NAME, message);
+    }
 }

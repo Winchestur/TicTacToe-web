@@ -1,6 +1,7 @@
 package com.game.tictactoe.areas.users.services;
 
 import com.cyecize.summer.common.annotations.Service;
+import com.game.tictactoe.areas.language.entities.Language;
 import com.game.tictactoe.areas.users.bindingModels.UserRegisterBindingModel;
 import com.game.tictactoe.areas.users.entities.User;
 import com.game.tictactoe.areas.users.enums.RoleType;
@@ -39,6 +40,12 @@ public class UserServiceImpl implements UserService {
         }
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
         this.userRepository.createUser(user);
+    }
+
+    @Override
+    public void changeLanguage(User user, Language language) {
+        user.setLanguage(language);
+        this.userRepository.merge(user);
     }
 
     @Override

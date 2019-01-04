@@ -1,5 +1,6 @@
 package com.game.tictactoe.areas.users.services;
 
+import com.game.tictactoe.areas.language.entities.Language;
 import com.game.tictactoe.areas.users.bindingModels.UserRegisterBindingModel;
 import com.game.tictactoe.areas.users.entities.User;
 
@@ -10,6 +11,8 @@ public interface UserService {
     void promote(User user);
 
     void createUser(UserRegisterBindingModel bindingModel);
+
+    void changeLanguage(User user, Language language);
 
     User findOneById(Long id);
 

@@ -27,4 +27,10 @@ public interface Dictionary {
     String choose();
 
     String fieldCannotBeEmpty();
+
+    String edit();
+
+    String save();
+
+    String changesWereSaved();
 }
