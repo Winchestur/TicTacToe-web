@@ -20,13 +20,10 @@
         {% embed '../sidebar.twig' %}
             {% block sidebarBody %}
                 <section class="sidebar-item">
-                    <h4>Change me</h4>
+                    <h4>{{ dict.password }}</h4>
                     <div class="list-group">
-                        <a class="list-group-item list-group-item-action" href="{{ path('edit_password') }}">
-                            {{ dict.changePassword }}Change Password
-                        </a>
-                        <a class="list-group-item list-group-item-action" href="{{ path('remove_account') }}">
-                            {{ dict.removeAccount }} Something do
+                        <a class="list-group-item list-group-item-action" href="{{ path('/user/password/edit') }}">
+                            {{ dict.edit }}
                         </a>
                     </div>
                 </section>

@@ -17,6 +17,31 @@ public class DictionaryEnImpl implements Dictionary {
     public static final String EDIT = "Edit";
     public static final String SAVE = "Save";
     public static final String CHANGES_WERE_SAVED = "Changes were saved";
+    public static final String OLD_PASSWORD = "Old Password";
+    public static final String NEW_PASSWORD = "New Password";
+    public static final String PASSWORD_LENGTH_MSG = "Password should be at least 6 characters long";
+    public static final String INVALID_PASSWORD = "Wrong password";
+    public static final String PASSWORDS_DO_NOT_MATCH = "Passwords do not match";
+
+    public String passwordsDoNotMatch() {
+        return PASSWORDS_DO_NOT_MATCH;
+    }
+
+    public String invalidPassword() {
+        return INVALID_PASSWORD;
+    }
+
+    public String passwordLengthMsg() {
+        return PASSWORD_LENGTH_MSG;
+    }
+
+    public String oldPassword() {
+        return OLD_PASSWORD;
+    }
+
+    public String newPassword() {
+        return NEW_PASSWORD;
+    }
 
     public String changesWereSaved() {
         return CHANGES_WERE_SAVED;

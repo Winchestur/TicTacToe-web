@@ -2,12 +2,12 @@ User Related
 	Register/Login
 		create login/register views	=> DONE
 		create user entity / binding models for login/register => DONE
-		validate login/register
+		validate login/register => Half way
 	
 	Personal Settings
-		Create user panel with options on the right.
-		Change password
-		Change language
+		Create user panel with options on the right. => DONE
+		Change password  => DONE
+		Change language  => DONE
 		/*Remove account*/
 		
 	Functionality
@@ -18,15 +18,15 @@ User Related
 		register
 			unique username/email
 			username may only contain letters, digits, dash and underscore
-			password length at least 6 characters
+			password length at least 6 characters   => DONE
 			valid email format - digitsNUmbers@domain.suffix
-			password and confirm password should match
+			password and confirm password should match => DONE
 			
 		login
 			create custom constraint "@ValidPassword" that will validate the password using BCrypt => DONE
 			
 		locale
-			translate above mentioned validation error messages
+			translate above mentioned validation error messages => HALF WAY
 		
 		html
 			all errors should be displayed under their respective field. => DONE

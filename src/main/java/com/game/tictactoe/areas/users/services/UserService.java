@@ -14,6 +14,8 @@ public interface UserService {
 
     void changeLanguage(User user, Language language);
 
+    void changePassword(User user, String newPassword);
+
     User findOneById(Long id);
 
     User findOneByUsername(String username);

@@ -33,4 +33,14 @@ public interface Dictionary {
     String save();
 
     String changesWereSaved();
+
+    String oldPassword();
+
+    String newPassword();
+
+    String passwordsDoNotMatch();
+
+    String invalidPassword();
+
+    String passwordLengthMsg();
 }

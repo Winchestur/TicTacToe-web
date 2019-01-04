@@ -1,6 +1,7 @@
 package com.game.tictactoe.areas.users.controllers;
 
 import com.cyecize.summer.areas.security.annotations.PreAuthorize;
+import com.cyecize.summer.areas.security.exceptions.UnauthorizedException;
 import com.cyecize.summer.areas.security.models.Principal;
 import com.cyecize.summer.areas.validation.annotations.Valid;
 import com.cyecize.summer.areas.validation.interfaces.BindingResult;
@@ -11,6 +12,7 @@ import com.cyecize.summer.common.models.ModelAndView;
 import com.cyecize.summer.common.models.RedirectAttributes;
 import com.game.tictactoe.areas.language.services.LanguageService;
 import com.game.tictactoe.areas.language.services.LocalLanguage;
+import com.game.tictactoe.areas.users.bindingModels.ChangePasswordBindingModel;
 import com.game.tictactoe.areas.users.bindingModels.LanguageBindingModel;
 import com.game.tictactoe.areas.users.services.UserService;
 import com.game.tictactoe.controllers.BaseController;
@@ -59,6 +61,31 @@ public class UserProfileController extends BaseController {
         return super.redirect("/user/profile");
     }
 
+    @GetMapping("/user/password/edit")
+    public ModelAndView changePasswordGetAction() {
+        return super.view("users/password/change-password.twig");
+    }
+
+    @PostMapping("/user/password/edit")
+    public ModelAndView changePasswordPostAction(
+            @Valid ChangePasswordBindingModel bindingModel,
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes,
+            Principal principal) throws UnauthorizedException {
+
+        if (bindingResult.hasErrors()) {
+            return super.redirect("/user/password/edit");
+        }
+
+        if (!bindingModel.getUser().getUsername().equals(principal.getUser().getUsername())) {
+            throw new UnauthorizedException("This is not you!");
+        }
+
+        this.userService.changePassword(bindingModel.getUser(), bindingModel.getNewPassword());
+        this.addSuccessMessage(this.localLanguage.dictionary().changesWereSaved(), redirectAttributes);
+
+        return super.redirect("/user/profile");
+    }
 
     private void addSuccessMessage(String message, RedirectAttributes redirectAttributes) {
         redirectAttributes.addAttribute(SUCCESS_MSG_PANEL_VAR_NAME, message);

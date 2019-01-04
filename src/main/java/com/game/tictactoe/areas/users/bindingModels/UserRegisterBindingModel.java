@@ -2,6 +2,7 @@ package com.game.tictactoe.areas.users.bindingModels;
 
 import com.cyecize.summer.areas.validation.annotations.ConvertedBy;
 import com.cyecize.summer.areas.validation.constraints.FieldMatch;
+import com.cyecize.summer.areas.validation.constraints.MaxLength;
 import com.cyecize.summer.areas.validation.constraints.MinLength;
 import com.cyecize.summer.areas.validation.constraints.NotNull;
 import com.game.tictactoe.areas.language.dataAdapters.IdToLanguageConverter;
@@ -16,10 +17,11 @@ public class UserRegisterBindingModel {
     @NotNull(message = "fieldCannotBeEmpty")
     private String email;
 
-    @MinLength(length = 6)
+    @MinLength(length = 6, message = "passwordLengthMsg")
+    @MaxLength(length = 250)
     private String password;
 
-    @FieldMatch(fieldToMatch = "password", message = "Passwords do not match")
+    @FieldMatch(fieldToMatch = "password", message = "passwordsDoNotMatch")
     private String passwordConfirm;
 
     @ConvertedBy(IdToLanguageConverter.class)

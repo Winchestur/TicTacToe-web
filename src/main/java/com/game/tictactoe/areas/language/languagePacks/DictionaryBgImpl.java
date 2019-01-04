@@ -18,6 +18,31 @@ public class DictionaryBgImpl implements Dictionary {
     public static final String EDIT = "Редакция";
     public static final String SAVE = "Запазване";
     public static final String CHANGES_WERE_SAVED = "Промените са запазени";
+    public static final String OLD_PASSWORD = "Стара Парола";
+    public static final String NEW_PASSWORD = "Нова Парола";
+    public static final String PASSWORD_LENGTH_MSG = "Паролата трябва да е поне 6 знака";
+    public static final String INVALID_PASSWORD = "Грешна парола";
+    public static final String PASSWORDS_DO_NOT_MATCH = "Паролите не съвпадат";
+
+    public String passwordsDoNotMatch() {
+        return PASSWORDS_DO_NOT_MATCH;
+    }
+
+    public String invalidPassword() {
+        return INVALID_PASSWORD;
+    }
+
+    public String passwordLengthMsg() {
+        return PASSWORD_LENGTH_MSG;
+    }
+
+    public String oldPassword() {
+        return OLD_PASSWORD;
+    }
+
+    public String newPassword() {
+        return NEW_PASSWORD;
+    }
 
     public String changesWereSaved() {
         return CHANGES_WERE_SAVED;

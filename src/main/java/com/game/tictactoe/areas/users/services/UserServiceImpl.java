@@ -49,6 +49,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void changePassword(User user, String newPassword) {
+        user.setPassword(BCrypt.hashpw(newPassword, BCrypt.gensalt()));
+        this.userRepository.merge(user);
+    }
+
+    @Override
     public User findOneById(Long id) {
         return this.userRepository.findOneById(id);
     }
