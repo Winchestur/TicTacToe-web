@@ -1,7 +1,7 @@
 User Related
 	Register/Login
-		create login/register views																											DONE
-		create user entity / binding models for login/register																				DONE
+		create login/register views	=> DONE
+		create user entity / binding models for login/register => DONE
 		validate login/register
 	
 	Personal Settings
@@ -12,7 +12,7 @@ User Related
 		
 	Functionality
 		User cannot register with existing username/email
-		Upon successful login, language should be set to the user's chosen lang.                                                             DONE
+		Upon successful login, language should be set to the user's chosen lang. => DONE
 		
 	Validations
 		register
@@ -23,7 +23,10 @@ User Related
 			password and confirm password should match
 			
 		login
-			create custom constraint "@ValidPassword" that will validate the password using BCrypt                                           DONE
+			create custom constraint "@ValidPassword" that will validate the password using BCrypt => DONE
+			
+		locale
+			translate above mentioned validation error messages
 		
 		html
-			all errors should be displayed under their respective field.                                                                     DONE
+			all errors should be displayed under their respective field. => DONE
