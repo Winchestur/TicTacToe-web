@@ -1,0 +1,22 @@
+{% extends '../panel.twig' %}
+
+{% block sectionTitle %}{{ dict.language }}{% endblock %}
+
+{% block sectionBody %}
+    <form method="post">
+        <div class="form-group">
+            <label for="language">{{ dict.language }}</label>
+            <select name="language" id="language" required class="form-control">
+                <option value="" selected>{{ dict.choose }}</option>
+                {% for language in languages %}
+                    <option value="{{ language.id }}" {% if language.id == user.language.id %} selected {% endif %}>{{ language.localeType.name }}</option>
+                {% endfor %}
+            </select>
+            {% embed '../../field-err.twig' with {'fieldName':'language'} %} {% endembed %}
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-outline-dark" type="submit">{{ dict.save }}</button>
+        </div>
+    </form>
+{% endblock %}

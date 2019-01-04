@@ -12,5 +12,7 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = ValidPasswordValidator.class)
 public @interface ValidPassword {
 
+    String userField();
+
     String message() default "Invalid Password";
 }

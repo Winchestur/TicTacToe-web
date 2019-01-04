@@ -12,7 +12,7 @@ public class UserLoginBindingModel {
     @NotNull
     private User username;
 
-    @ValidPassword
+    @ValidPassword(userField = "username", message = "invalidPassword")
     private String password;
 
     private String referrer;

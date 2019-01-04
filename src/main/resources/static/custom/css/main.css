@@ -1,1 +1,11 @@
 /*Put general styles here*/
+
+.bg-gray {
+    background: rgba(230, 230, 230, 0.3);
+}
+
+.rounded-5 {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}

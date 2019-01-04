@@ -1,0 +1,12 @@
+.sidebar-section {
+
+}
+
+.sidebar-background {
+    background: #ededed;
+    background: linear-gradient(to left, #ededed, rgba(0, 0, 0, 0));
+}
+
+.sidebar-item {
+    padding: 5px;
+}

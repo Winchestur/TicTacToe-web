@@ -24,7 +24,7 @@
                 </li>
                 {% if hasRole("ROLE_USER") %}
                     <li>
-                        <a class="text-muted" href="{{ path("/logout") }}">{{ user.username }}</a>
+                        <a class="text-muted" href="{{ path("/user/profile") }}">{{ user.username }}</a>
                     </li>
                     <li>
                         <a class="text-muted" href="{{ path("/logout") }}">{{ dict.logout }}</a>

@@ -1,0 +1,60 @@
+{% extends '../base-layout.twig' %}
+
+{% block title %}{{ user.username }}{% endblock %}
+
+{% block body %}
+    <div class="row mt-2 pt-2">
+        <div class="col-lg-9">
+            <h3>{% block sectionTitle %}{{ user.username }}{% endblock %}</h3>
+            <hr>
+            <div class="bg-gray p-1 rounded-5" id="mainPanelContent" style="display: none;">
+                {% block sectionBody %}
+                    {% if successMsg is defined %}
+                        <h3 class="text-success success-msg">{{ successMsg }}</h3>
+                    {% else %}
+                        {% embed 'lang/' ~ locale ~ '/profile-panel-text.twig' %} {% endembed %}
+                    {% endif %}
+                {% endblock %}
+            </div>
+        </div>
+        {% embed '../sidebar.twig' %}
+            {% block sidebarBody %}
+                <section class="sidebar-item">
+                    <h4>{{ dict.password }}</h4>
+                    <div class="list-group">
+                        <a class="list-group-item list-group-item-action" href="{{ path('/user/password/edit') }}">
+                            {{ dict.edit }}
+                        </a>
+                    </div>
+                </section>
+
+                <section class="sidebar-item">
+                    <h4>{{ dict.language }}</h4>
+                    <div>
+                        <a class="list-group-item list-group-item-action" href="{{ path('/user/language/edit') }}">
+                            {{ dict.edit }}
+                        </a>
+                    </div>
+                </section>
+
+            {% endblock %}
+        {% endembed %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(function () {
+            $('#mainPanelContent').show(300);
+
+            setTimeout(function () {
+                $('.success-msg').hide(300);
+            }, 3000);
+        });
+    </script>
+
+    {% block sectionScripts %}
+
+    {% endblock %}
+
+{% endblock %}
