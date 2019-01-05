@@ -23,6 +23,31 @@ public class DictionaryBgImpl implements Dictionary {
     public static final String PASSWORD_LENGTH_MSG = "Паролата трябва да е поне 6 знака";
     public static final String INVALID_PASSWORD = "Грешна парола";
     public static final String PASSWORDS_DO_NOT_MATCH = "Паролите не съвпадат";
+    public static final String INVALID_FORMAT = "Невалиден формат";
+    public static final String EMAIL_TAKEN = "Email адресът е зает";
+    public static final String USERNAME_TAKEN = "Потр. име е заето";
+    public static final String INVALID_VALUE = "Невалидна стойност";
+    public static final String USERNAME_OR_EMAIL_NOT_FOUND = "Не е открит потребител с това потр. име / Email";
+
+    public String usernameOrEmailNotFound() {
+        return USERNAME_OR_EMAIL_NOT_FOUND;
+    }
+
+    public String invalidValue() {
+        return INVALID_VALUE;
+    }
+
+    public String usernameTaken() {
+        return USERNAME_TAKEN;
+    }
+
+    public String emailTaken() {
+        return EMAIL_TAKEN;
+    }
+
+    public String invalidFormat() {
+        return INVALID_FORMAT;
+    }
 
     public String passwordsDoNotMatch() {
         return PASSWORDS_DO_NOT_MATCH;
