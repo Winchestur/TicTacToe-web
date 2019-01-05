@@ -43,4 +43,15 @@ public interface Dictionary {
     String invalidPassword();
 
     String passwordLengthMsg();
+
+    String invalidValue();
+
+    String usernameTaken();
+
+    String emailTaken();
+
+    String invalidFormat();
+
+    String usernameOrEmailNotFound();
+
 }

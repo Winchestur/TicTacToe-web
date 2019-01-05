@@ -1,20 +1,24 @@
 package com.game.tictactoe.areas.users.bindingModels;
 
 import com.cyecize.summer.areas.validation.annotations.ConvertedBy;
-import com.cyecize.summer.areas.validation.constraints.FieldMatch;
-import com.cyecize.summer.areas.validation.constraints.MaxLength;
-import com.cyecize.summer.areas.validation.constraints.MinLength;
-import com.cyecize.summer.areas.validation.constraints.NotNull;
+import com.cyecize.summer.areas.validation.constraints.*;
 import com.game.tictactoe.areas.language.dataAdapters.IdToLanguageConverter;
 import com.game.tictactoe.areas.language.entities.Language;
+import com.game.tictactoe.areas.users.constraints.UniqueUsername;
 
 public class UserRegisterBindingModel {
 
-    @MinLength(length = 3)
+    @MinLength(length = 3, message = "invalidValue")
+    @MaxLength(length = 20, message = "invalidValue")
     @NotNull(message = "fieldCannotBeEmpty")
+    @RegEx(value = "^[\\w-_]+$", message = "invalidFormat")
+    @UniqueUsername(message = "usernameTaken")
     private String username;
 
     @NotNull(message = "fieldCannotBeEmpty")
+    @MaxLength(length = 50)
+    @RegEx(value = "^[\\w-_]+@[\\w-_]+\\.\\w+$", message = "invalidFormat")
+    @UniqueUsername(message = "emailTaken")
     private String email;
 
     @MinLength(length = 6, message = "passwordLengthMsg")

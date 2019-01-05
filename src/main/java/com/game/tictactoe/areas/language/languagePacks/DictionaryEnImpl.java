@@ -22,6 +22,31 @@ public class DictionaryEnImpl implements Dictionary {
     public static final String PASSWORD_LENGTH_MSG = "Password should be at least 6 characters long";
     public static final String INVALID_PASSWORD = "Wrong password";
     public static final String PASSWORDS_DO_NOT_MATCH = "Passwords do not match";
+    public static final String INVALID_FORMAT = "Invalid format";
+    public static final String EMAIL_TAKEN = "Email taken";
+    public static final String USERNAME_TAKEN = "Username taken";
+    public static final String INVALID_VALUE = "Invalid value";
+    public static final String USERNAME_OR_EMAIL_NOT_FOUND = "User with this username / Email was not found";
+
+    public String usernameOrEmailNotFound() {
+        return USERNAME_OR_EMAIL_NOT_FOUND;
+    }
+
+    public String invalidValue() {
+        return INVALID_VALUE;
+    }
+
+    public String usernameTaken() {
+        return USERNAME_TAKEN;
+    }
+
+    public String emailTaken() {
+        return EMAIL_TAKEN;
+    }
+
+    public String invalidFormat() {
+        return INVALID_FORMAT;
+    }
 
     public String passwordsDoNotMatch() {
         return PASSWORDS_DO_NOT_MATCH;

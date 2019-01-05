@@ -9,7 +9,7 @@ import com.game.tictactoe.areas.users.entities.User;
 public class UserLoginBindingModel {
 
     @ConvertedBy(StringToUserAdapter.class)
-    @NotNull
+    @NotNull(message = "usernameOrEmailNotFound")
     private User username;
 
     @ValidPassword(userField = "username", message = "invalidPassword")
