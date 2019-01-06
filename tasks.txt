@@ -30,3 +30,12 @@ User Related
 		
 		html
 			all errors should be displayed under their respective field. => DONE
+			
+Design
+	Night Mode
+		Functionality
+			create a switch that changes the page from white to dark and the opposite.
+			
+		Requirements
+			mode switching should not reload the page
+			mode preference should be preserved in local storage
