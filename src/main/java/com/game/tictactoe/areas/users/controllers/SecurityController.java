@@ -65,7 +65,7 @@ public class SecurityController extends BaseController {
 
         User user = bindingModel.getUsername();
 
-        //this.onlinePlayerService.addOnlineUser(user);
+        this.onlinePlayerService.addOnlineUser(user);
         principal.setUser(user);
 
         this.localLanguage.updateLanguage(user.getLanguage().getLocaleType());
@@ -86,5 +86,12 @@ public class SecurityController extends BaseController {
         }
         this.userService.createUser(bindingModel);
         return super.redirect("/login");
+    }
+
+    @GetMapping("/before-logout")
+    @PreAuthorize(LOGGED_IN)
+    public ModelAndView beforeLogoutAction(Principal principal) {
+        this.onlinePlayerService.putOffline((User) principal.getUser());
+        return super.redirect("/logout");
     }
 }

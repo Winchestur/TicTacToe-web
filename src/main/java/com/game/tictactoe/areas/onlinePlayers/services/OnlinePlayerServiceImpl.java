@@ -44,6 +44,14 @@ public class OnlinePlayerServiceImpl implements OnlinePlayerService {
     }
 
     @Override
+    public void putOffline(User user) {
+        OnlinePlayer onlinePlayer = this.repository.findByUser(user);
+        if (onlinePlayer != null) {
+            this.repository.remove(onlinePlayer);
+        }
+    }
+
+    @Override
     public void addOnlineUser(User user) {
         OnlinePlayer onlinePlayer = this.repository.findByUser(user);
         if (onlinePlayer != null) {

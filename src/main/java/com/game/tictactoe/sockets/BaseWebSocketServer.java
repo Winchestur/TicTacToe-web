@@ -12,7 +12,7 @@ import java.util.Set;
 
 public abstract class BaseWebSocketServer extends WebSocketServer implements SocketSender {
 
-    private Set<WebSocket> sockets;
+    protected Set<WebSocket> sockets;
 
     protected OnMessage onMessage;
 

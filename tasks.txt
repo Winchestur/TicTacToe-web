@@ -44,10 +44,10 @@ Design
 	
 Online Users
 	Back End
-		create OnlineUser Entity
-		create cron job for filtering online users
-		create online user service/controller
-		put users online/offline on login/logout
+		create OnlineUser Entity => DONE
+		create cron job for filtering online users  => DONE
+		create online user service/controller => DONE
+		put users online/offline on login/logout => DONE
 		
 	Front End
 		create online users section in the sidebar

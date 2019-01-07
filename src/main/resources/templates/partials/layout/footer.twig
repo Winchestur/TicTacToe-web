@@ -27,7 +27,7 @@
                         <a class="text-muted" href="{{ path("/user/profile") }}">{{ user.username }}</a>
                     </li>
                     <li>
-                        <a class="text-muted" href="{{ path("/logout") }}">{{ dict.logout }}</a>
+                        <a class="text-muted" href="{{ path("/before-logout") }}">{{ dict.logout }}</a>
                     </li>
                     {% if hasRole('ROLE_ADMIN') %}
                         <li>

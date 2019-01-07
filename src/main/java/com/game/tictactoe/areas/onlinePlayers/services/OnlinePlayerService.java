@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface OnlinePlayerService {
 
+    void putOffline(User user);
+
     void addOnlineUser(User user);
 
     List<String> findOnlinePlayerNames();
