@@ -11,9 +11,14 @@
         </div>
         {% embed '../sidebar.twig' %}
             {% block sidebarBody %}
-                <br>
-                <h2>hello</h2>
-                <br>
+                <section class="sidebar-item">
+                    <h4>Online Players</h4>
+                    <div class="list-group" id="onlinePlayersList">
+                        <a class="list-group-item " href="{{ path('/user/password/edit') }}">
+                            {{ dict.edit }}
+                        </a>
+                    </div>
+                </section>
             {% endblock %}
         {% endembed %}
     </div>
@@ -23,22 +28,38 @@
     <script src="{{ path('/static/custom/js/game-logic.js') }}"></script>
 
     <script>
-        var connection = new WebSocket('ws://127.0.0.1:8090');
+        $(function () {
+            var onlinePlayersList = $('#onlinePlayersList');
 
-        connection.onopen = function () {
-            console.log('Connected!');
+            var connection = new WebSocket('ws://127.0.0.1:8090');
 
-            setInterval(function () {
-                connection.send(utils.getCookie('JAVACHE_SESSION_ID'));
-            }, 5000); //send keep-alive packet every 5 seconds
-        };
+            connection.onopen = function () {
+                console.log('Connected!');
 
-        connection.onerror = function (error) {
-            console.log('WebSocket Error ' + error);
-        };
+                setInterval(function () {
+                    connection.send(utils.getCookie('JAVACHE_SESSION_ID'));
+                }, 5000); //send keep-alive packet every 5 seconds
+            };
 
-        connection.onmessage = function (e) {
-            console.log('Server: ' + e.data);
-        };
+            connection.onerror = function (error) {
+                console.log('WebSocket Error ' + error);
+            };
+
+            connection.onmessage = function (e) {
+                console.log('Server: ' + e.data);
+                var data = JSON.parse(e.data);
+
+                onlinePlayersList.html('');
+
+                data.forEach(function (username) {
+                    var onlinePlayer = $('<a href="#" class="list-group-item">');
+                    onlinePlayer.text(username);
+
+                    onlinePlayersList.append(onlinePlayer);
+                });
+
+            };
+
+        });
     </script>
 {% endblock %}
