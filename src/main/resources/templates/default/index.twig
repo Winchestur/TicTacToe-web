@@ -6,35 +6,7 @@
     <div class="row">
         <div class="col-lg-8 d-flex justify-content-center align-items-center">
             <div>
-                <div class="game-container">
-                    <div class="ttt-box ttt-box-left ttt-box-left-top">
-                        <div id="t1a" class="ttt-inner-box smooth"></div>
-                    </div>
-                    <div class="ttt-box ttt-box-left-top">
-                        <div id="t1b" class="ttt-inner-box smooth"></div>
-                    </div>
-                    <div class="ttt-box ttt-box-right ttt-box-left-top">
-                        <div id="t1c" class="ttt-inner-box smooth"></div>
-                    </div>
-                    <div class="ttt-box ttt-box-left">
-                        <div id="t2a" class="ttt-inner-box smooth"></div>
-                    </div>
-                    <div class="ttt-box">
-                        <div id="t2b" class="ttt-inner-box smooth"></div>
-                    </div>
-                    <div class="ttt-box ttt-box-right">
-                        <div id="t2c" class="ttt-inner-box smooth"></div>
-                    </div>
-                    <div class="ttt-box ttt-box-left ttt-box-left-bot">
-                        <div id="t3a" class="ttt-inner-box smooth"></div>
-                    </div>
-                    <div class="ttt-box ttt-box-left-bot ">
-                        <div id="t3b" class="ttt-inner-box smooth"></div>
-                    </div>
-                    <div class="ttt-box ttt-box-right ttt-box-left-bot">
-                        <div id="t3c" class="ttt-inner-box smooth"></div>
-                    </div>
-                </div>
+                {% embed '../partials/game/board.twig' %} {% endembed %}
             </div>
         </div>
         {% embed '../sidebar.twig' %}
@@ -53,25 +25,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script>
-        $(function () {
-            var prev = 0;
-
-            $('.ttt-box').on('click', function (e) {
-
-                if ($(this).hasClass('sign-o') || $(this).hasClass('sign-x')) {
-                    alert("Do Not Click Twice!");
-                    return;
-                }
-
-                if (prev % 2 === 0) {
-                    $(this).addClass('sign-x');
-                }
-                else {
-                    $(this).addClass('sign-o');
-                }
-                prev++;
-            });
-        });
-    </script>
+    <script src="{{ path('/static/custom/js/game-logic/js') }}"></script>
 {% endblock %}
