@@ -70,7 +70,7 @@ Game Invites
 		/*Replace setInterval with socket for refreshing invites and listening your sent invite*** */
 		
 	Constraints
-		palyer can only send 1 invite at a time
+		player can only send 1 invite at a time
 		player a cannot send invite to player b if player b has already sent an invite
 		player cannot accept invite if he is in game
 

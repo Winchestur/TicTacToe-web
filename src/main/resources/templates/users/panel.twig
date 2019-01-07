@@ -18,6 +18,7 @@
             </div>
         </div>
         {% embed '../sidebar.twig' %}
+            {% block sidebarSize %}col-lg-3{% endblock %}
             {% block sidebarBody %}
                 <section class="sidebar-item">
                     <h4>{{ dict.password }}</h4>
