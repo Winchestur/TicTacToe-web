@@ -13,6 +13,7 @@ import com.cyecize.summer.common.models.ModelAndView;
 import com.cyecize.summer.common.models.RedirectAttributes;
 import com.game.tictactoe.areas.language.services.LanguageService;
 import com.game.tictactoe.areas.language.services.LocalLanguage;
+import com.game.tictactoe.areas.onlinePlayers.services.OnlinePlayerService;
 import com.game.tictactoe.areas.users.bindingModels.UserLoginBindingModel;
 import com.game.tictactoe.areas.users.bindingModels.UserRegisterBindingModel;
 import com.game.tictactoe.areas.users.entities.User;
@@ -29,11 +30,14 @@ public class SecurityController extends BaseController {
 
     private final UserService userService;
 
+    private final OnlinePlayerService onlinePlayerService;
+
     private final LocalLanguage localLanguage;
 
-    public SecurityController(LanguageService languageService, UserService userService, LocalLanguage localLanguage) {
+    public SecurityController(LanguageService languageService, UserService userService, OnlinePlayerService onlinePlayerService, LocalLanguage localLanguage) {
         this.languageService = languageService;
         this.userService = userService;
+        this.onlinePlayerService = onlinePlayerService;
         this.localLanguage = localLanguage;
     }
 
@@ -60,8 +64,8 @@ public class SecurityController extends BaseController {
             return super.redirect("/login");
 
         User user = bindingModel.getUsername();
-        //TODO put player online
 
+        this.onlinePlayerService.addOnlineUser(user);
         principal.setUser(user);
 
         this.localLanguage.updateLanguage(user.getLanguage().getLocaleType());
@@ -82,5 +86,12 @@ public class SecurityController extends BaseController {
         }
         this.userService.createUser(bindingModel);
         return super.redirect("/login");
+    }
+
+    @GetMapping("/before-logout")
+    @PreAuthorize(LOGGED_IN)
+    public ModelAndView beforeLogoutAction(Principal principal) {
+        this.onlinePlayerService.putOffline((User) principal.getUser());
+        return super.redirect("/logout");
     }
 }
