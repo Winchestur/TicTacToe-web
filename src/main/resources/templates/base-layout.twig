@@ -34,6 +34,7 @@
 <!-- scripts -->
 <script descr="TWIG_CONSTANTS">
     var CURRENT_URL = '{{ request.relativeRequestURL }}';
+    var BASE_URL = '{{ url("") }}';
 </script>
 
 {% embed 'partials/layout/scripts.twig' %} {% endembed %}

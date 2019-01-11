@@ -15,3 +15,18 @@ var utils = {
         return "";
     }
 };
+
+var webSocketUtils = {
+    createWebSocket: function (port) {
+        var baseUrl = BASE_URL;
+        if (baseUrl.indexOf(':') !== -1) {
+            baseUrl = baseUrl.substring(0, baseUrl.indexOf(':'));
+        }
+        return new WebSocket("ws:" + baseUrl + ":" + port);
+    },
+
+    onSocketError: function (error) {
+        alert("Error with socket: " + error);
+        //TODO change the error handling for default socket error handler.
+    }
+};

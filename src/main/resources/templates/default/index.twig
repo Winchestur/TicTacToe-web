@@ -26,40 +26,4 @@
 
 {% block javascripts %}
     <script src="{{ path('/static/custom/js/game-logic.js') }}"></script>
-
-    <script>
-        $(function () {
-            var onlinePlayersList = $('#onlinePlayersList');
-
-            var connection = new WebSocket('ws://127.0.0.1:8090');
-
-            connection.onopen = function () {
-                console.log('Connected!');
-
-                setInterval(function () {
-                    connection.send(utils.getCookie('JAVACHE_SESSION_ID'));
-                }, 5000); //send keep-alive packet every 5 seconds
-            };
-
-            connection.onerror = function (error) {
-                console.log('WebSocket Error ' + error);
-            };
-
-            connection.onmessage = function (e) {
-                console.log('Server: ' + e.data);
-                var data = JSON.parse(e.data);
-
-                onlinePlayersList.html('');
-
-                data.forEach(function (username) {
-                    var onlinePlayer = $('<a href="#" class="list-group-item">');
-                    onlinePlayer.text(username);
-
-                    onlinePlayersList.append(onlinePlayer);
-                });
-
-            };
-
-        });
-    </script>
 {% endblock %}

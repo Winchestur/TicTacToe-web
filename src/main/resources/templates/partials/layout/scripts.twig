@@ -2,7 +2,13 @@
 <script src="{{ path('/static/lib/js/bootstrap.min.js') }}"></script>
 
 <!-- Custom scripts -->
+<script src="{{ path('/static/custom/js/constants.js') }}"></script>
+<script src="{{ path('/static/custom/js/utils.js') }}"></script>
 <script src="{{ path('/static/custom/js/fields.js') }}"></script>
 <script src="{{ path('/static/custom/js/header-routing.js') }}"></script>
 <script src="{{ path('/static/custom/js/lang-manager.js') }}"></script>
-<script src="{{ path('/static/custom/js/utils.js') }}"></script>
+
+{% if user %}
+    <!-- Logged in user scripts-->
+    <script src="{{ path('/static/custom/js/sockets/online-players.js') }}"></script>
+{% endif %}
