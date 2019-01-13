@@ -25,11 +25,4 @@ public class BeanConfiguration {
     public ModelMapper getModelMapper() {
         return new ModelMapper();
     }
-
-    @Bean
-    public OnlinePlayerWebSocketServer getOnlinePlayerWebSocketServer() {
-        OnlinePlayerWebSocketServer socketServer = new OnlinePlayerWebSocketServer(new InetSocketAddress(WebSocketConstants.ONLINE_PLAYERS_SOCKET_PORT));
-        socketServer.start();
-        return socketServer;
-    }
 }

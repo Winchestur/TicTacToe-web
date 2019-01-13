@@ -19,14 +19,21 @@ var utils = {
 var webSocketUtils = {
     createWebSocket: function (port) {
         var baseUrl = BASE_URL;
+
+        //If the base url has port, remove it.
         if (baseUrl.indexOf(':') !== -1) {
             baseUrl = baseUrl.substring(0, baseUrl.indexOf(':'));
         }
-        return new WebSocket("ws:" + baseUrl + ":" + port);
+
+        return new WebSocket(
+            "ws:" + baseUrl + ":" + port +
+            "?" + constants.SOCKET_INIT_SESSION_ID_PARAM_NAME + "=" + utils.getCookie(constants.JAVACHE_SESSION_ID)
+        );
     },
 
     onSocketError: function (error) {
         alert("Error with socket: " + error);
+        console.log(error);
         //TODO change the error handling for default socket error handler.
     }
 };
