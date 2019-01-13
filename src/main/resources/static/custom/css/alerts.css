@@ -58,8 +58,8 @@
     right: -5px;
     top: -5px;
 
-    width: 15px;
-    height: 15px;
+    width: 18px;
+    height: 18px;
 
     border: 1px white solid;
 
@@ -70,7 +70,7 @@
     background: black;
     color: white;
     text-align: center;
-    font-size: 12px;
+    font-size: 10px;
 }
 
 /* TODO replace those colors with rgba to add transparency */
