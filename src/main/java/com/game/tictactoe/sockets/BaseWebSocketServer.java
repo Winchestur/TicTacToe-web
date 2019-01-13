@@ -9,12 +9,13 @@ import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
 import java.net.InetSocketAddress;
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 public abstract class BaseWebSocketServer extends WebSocketServer {
 
-    private Set<WebSocket> sockets;
+    private Map<String, WebSocket> sockets;
 
     private OnMessage onMessage;
 
@@ -24,7 +25,7 @@ public abstract class BaseWebSocketServer extends WebSocketServer {
 
     public BaseWebSocketServer(InetSocketAddress address) {
         super(address);
-        this.sockets = new HashSet<>();
+        this.sockets = new HashMap<>();
     }
 
     /**
@@ -33,12 +34,13 @@ public abstract class BaseWebSocketServer extends WebSocketServer {
      */
     @Override
     public void onOpen(WebSocket webSocket, ClientHandshake clientHandshake) {
+        String sessionId = SocketUtils.extractSessionId(clientHandshake.getResourceDescriptor());
         if (this.onOpen != null) {
-            if (!this.onOpen.onOpen(webSocket, clientHandshake, SocketUtils.extractSessionId(clientHandshake.getResourceDescriptor()))) {
+            if (!this.onOpen.onOpen(webSocket, clientHandshake, sessionId)) {
                 return;
             }
         }
-        this.sockets.add(webSocket);
+        this.sockets.put(sessionId, webSocket);
     }
 
     @Override
@@ -47,7 +49,7 @@ public abstract class BaseWebSocketServer extends WebSocketServer {
             this.onClose.onClose(conn, code, reason, remote);
         }
 
-        this.sockets.remove(conn);
+        this.sockets.remove(SocketUtils.extractSessionId(conn.getResourceDescriptor()));
     }
 
     @Override
@@ -69,18 +71,18 @@ public abstract class BaseWebSocketServer extends WebSocketServer {
     }
 
     public void sendMessage(String message) {
-        for (WebSocket socket : this.sockets) {
+        for (WebSocket socket : this.sockets.values()) {
             socket.send(message);
         }
     }
 
     public void sendMessage(byte[] message) {
-        for (WebSocket socket : this.sockets) {
+        for (WebSocket socket : this.sockets.values()) {
             socket.send(message);
         }
     }
 
-    public Set<WebSocket> getSockets() {
+    public Map<String, WebSocket> getSockets() {
         return this.sockets;
     }
 
