@@ -43,9 +43,11 @@ public class OnlinePlayerServiceImpl implements OnlinePlayerService {
             this.repository.filterOnlinePlayers(new Date().getTime() - 30000); // 1 min
             this.onlinePlayersSocket.sendMessage(gson.toJson(this.findOnlinePlayerNames()));
 
-            for (User user : this.sessionUserMap.values()) {
-                this.addOnlineUser(user);//TODO put this code in a bigger timer.
-            }
+           synchronized (this.onlinePlayersSocket) {
+               for (User user : this.sessionUserMap.values()) {
+                   this.addOnlineUser(user);//TODO put this code in a bigger timer.
+               }
+           }
         });
 
         refreshTimer.setRepeats(true);
