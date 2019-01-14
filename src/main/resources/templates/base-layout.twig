@@ -40,9 +40,4 @@
 
 {% embed 'partials/layout/scripts.twig' %} {% endembed %}
 {% block javascripts %}{% endblock %}
-<script>
-    window.onNotiClick = function (notification) {
-        console.log(notification.find('span:first').text());
-    }
-</script>
 </html>
