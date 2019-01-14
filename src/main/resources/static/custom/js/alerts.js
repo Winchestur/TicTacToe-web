@@ -3,17 +3,22 @@ var NotificationEventManager = (function () {
 
     function initHideNotificationEvent() {
         notificationsContainer.on('click', '.hide-noti-box', function (eventArgs) {
-            console.log($(this).parent().find('span:first').text()); //TODO remove this line
+            var notification = $(this).parent();
             if (window.onNotiClose) {
-                window.onNotiClose($(this).parent());
+                window.onNotiClose(notification);
             }
+
+            notification.fadeOut(500, function (value) {
+                notification.remove();
+            });
         });
     }
 
     function initNotificationClickEvent() {
         notificationsContainer.on('click', '.noti-box', function (eventArgs) {
-            if (eventArgs.target !== this) {
-                return;
+            var target = $(eventArgs.target);
+            if (target.hasClass('hide-noti-box') || target.parent().hasClass('hide-noti-box')) {
+                return false;
             }
 
             if (window.onNotiClick) {
