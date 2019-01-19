@@ -122,41 +122,23 @@ $(function () {
     NotificationViewManager.init(alertsContainer);
 
 
-    //Example usage of NotificationViewManager...
-    var exampleNoti = NotificationViewManager.createNotification(
-        "Testing Noti",
-        notificationType.NOTIFICATION_SUCCESS,
-        function (notiId) { //accept
-            console.log('accepted ' + notiId);
-            alert('U accepted ' + notiId);
-        },
-        function (notiId) { //decline
-            console.log('declined ' + notiId);
-            alert('u declined ' + notiId);
-        }
-    );
+    // //Example usage of NotificationViewManager...
+    // var exampleNoti = NotificationViewManager.createNotification(
+    //     "Testing Noti",
+    //     notificationType.NOTIFICATION_SUCCESS,
+    //     function (notiId) { //accept
+    //         console.log('accepted ' + notiId);
+    //         alert('U accepted ' + notiId);
+    //     },
+    //     function (notiId) { //decline
+    //         console.log('declined ' + notiId);
+    //         alert('u declined ' + notiId);
+    //     }
+    // );
+    //
+    // setTimeout(function () {
+    //     var id = NotificationViewManager.showNotification(exampleNoti, 5000); //5s
+    //     console.log(id + ' ___id');
+    // }, 1000);
 
-    //Example usage of NotificationViewManager...
-    var exampleNoti2 = NotificationViewManager.createNotification(
-        "Testing Noti 2",
-        notificationType.NOTIFICATION_SUCCESS,
-        function (notiId) { //accept
-            console.log('accepted ' + notiId);
-            alert('U accepted ' + notiId);
-        },
-        function (notiId) { //decline
-            console.log('declined ' + notiId);
-            alert('u declined ' + notiId);
-        }
-    );
-
-    setTimeout(function () {
-        var id = NotificationViewManager.showNotification(exampleNoti, 5000); //5s
-        console.log(id + ' ___id');
-
-        setTimeout(function () {
-            var id2 = NotificationViewManager.showNotification(exampleNoti2, 5000); //5s
-            console.log(id2 + ' ___id');
-        }, 1000);
-    }, 1000);
 });
