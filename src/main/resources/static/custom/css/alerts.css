@@ -1,0 +1,113 @@
+.alerts-container {
+    position: fixed;
+    right: 10px;
+    top: 10px;
+
+    width: 40%;
+    max-width: 400px;
+
+    padding: 3px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    z-index: 1050; /* Bootstrap Nav-bar has z-index of 1030. */
+}
+
+.alerts-container .noti-box {
+    display: block;
+    position: relative;
+
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+
+    width: 95%;
+    margin: 10px auto 0;
+    padding: 8px 20px;
+
+    color: white;
+
+    -webkit-box-shadow: 1px 1px 5px rebeccapurple;
+    -moz-box-shadow: 1px 1px 5px rebeccapurple;
+    box-shadow: 1px 1px 5px rebeccapurple;
+
+    opacity: 1;
+    cursor: pointer;
+    /*visibility: hidden; TODO set to hidden and then show with JS*/
+}
+
+.alerts-container .noti-box:hover {
+    -webkit-box-shadow: 1px 1px 10px #ffd4cd;
+    -moz-box-shadow: 1px 1px 10px #ffd4cd;
+    box-shadow: 1px 1px 10px #ffd4cd;
+
+    opacity: 0.9;
+}
+
+.alerts-container .noti-box .hide-noti-box {
+    position: absolute;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+    -ms-flex-pack: center;
+
+    right: -5px;
+    top: -5px;
+
+    width: 20px;
+    height: 20px;
+
+    border: 1px white solid;
+
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+
+    background: black;
+    color: white;
+    text-align: center;
+    font-size: 10px;
+
+    visibility: hidden;
+}
+
+.alerts-container .noti-box .hide-noti-box:hover {
+    transition-delay: 0.2s;
+
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+
+    background: lightyellow;
+    color: black;
+    border: 1px black solid;
+}
+
+.alerts-container .noti-box:hover .hide-noti-box {
+    visibility: visible;
+}
+
+/* TODO replace those colors with rgba to add transparency */
+.alerts-container .noti-danger {
+    background: red;
+}
+
+.alerts-container .noti-success {
+    background: green;
+}
+
+.alerts-container .noti-info {
+    background: #17a2b8;
+}
+
+@media screen and (max-width: 768px) {
+    .alerts-container {
+        display: none;
+    }
+}
