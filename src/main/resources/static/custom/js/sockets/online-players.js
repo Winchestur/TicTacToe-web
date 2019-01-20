@@ -8,7 +8,7 @@ var OnlinePlayerManager = function (port, onUsersUpdateCallback) {
             this.onUsersUpdateCallback(JSON.parse(msg.data));
         }
     }.bind(this);
-    
+
     connection.onerror = webSocketUtils.onSocketError;
 };
 
@@ -25,16 +25,34 @@ var OnlinePlayerViewManager = function (onlinePlayersContainer) {
 
         getDisplayedNamesElements().forEach(function (usernameHtmlElementPair) {
             if (allUsers.indexOf(usernameHtmlElementPair.username) === -1) {
-                $(usernameHtmlElementPair.htmlElement).remove();
-                console.log(usernameHtmlElementPair.username + ' went offline');
+                $(usernameHtmlElementPair.htmlElement).parent().remove();
             }
         });
 
         newUserNames.forEach(function (username) {
-            var onlinePlayerTemplate = $('<a href="#" class="list-group-item online-player">');
-            onlinePlayerTemplate.text(username);
+            var onlinePlayerTemplate = $('<li class="list-group-item py-1 online-player-item" style="cursor:pointer; position: relative;">')
+                .append($('<div class="online-player text-success">').text(username));
+
+            onlinePlayerTemplate.append(createOnlinePlayerHoverMenu(username));
+
             onlinePlayersContainer.append(onlinePlayerTemplate);
         });
+    }
+
+    function createOnlinePlayerHoverMenu(username) {
+        var menuContainer = $('<div class="online-player-menu"></div>');
+        var inviteOption = $('<div class="online-player-option">Invite To Play</div>');
+        //var addFriendOption = $('<div class="online-player-option">Add Friend</div>');
+        inviteOption.on('click', function (eventArgs) {
+            //if event is present, call it
+            if (window.onInviteSend) {
+                window.onInviteSend(username);
+            }
+        });
+
+        menuContainer.append(inviteOption);
+        //menuContainer.append(addFriendOption);
+        return menuContainer;
     }
 
     function getDisplayedNamesElements() {

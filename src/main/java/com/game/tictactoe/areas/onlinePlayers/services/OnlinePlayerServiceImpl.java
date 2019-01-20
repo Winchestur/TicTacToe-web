@@ -42,9 +42,11 @@ public class OnlinePlayerServiceImpl implements OnlinePlayerService {
             this.onlinePlayersSocket.sendMessage(gson.toJson(this.findOnlinePlayerNames()));
 
             synchronized (this.onlinePlayersSocket) {
-                Iterator<User> iterator = this.sessionUserMap.values().iterator();
-                while (iterator.hasNext()) {
-                    this.addOnlineUser(iterator.next());//TODO put this code in a bigger timer.
+                try {
+                    for (User user : this.sessionUserMap.values()) {
+                        this.addOnlineUser(user);//TODO put this code in a bigger timer.
+                    }
+                } catch (ConcurrentModificationException ignored) {
                 }
             }
         });

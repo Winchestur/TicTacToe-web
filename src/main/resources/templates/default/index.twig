@@ -13,11 +13,7 @@
             {% block sidebarBody %}
                 <section class="sidebar-item">
                     <h4>Online Players</h4>
-                    <div class="list-group" id="onlinePlayersList">
-                        <a class="list-group-item " href="{{ path('/user/password/edit') }}">
-                            {{ dict.edit }}
-                        </a>
-                    </div>
+                    <div class="list-group" id="onlinePlayersList"></div>
                 </section>
             {% endblock %}
         {% endembed %}
@@ -26,4 +22,10 @@
 
 {% block javascripts %}
     <script src="{{ path('/static/custom/js/game-logic.js') }}"></script>
+
+    <script>
+        window.onInviteSend = function (username) {
+            alert(username + ' was invited!');
+        }
+    </script>
 {% endblock %}
