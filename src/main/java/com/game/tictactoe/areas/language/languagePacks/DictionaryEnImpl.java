@@ -27,6 +27,16 @@ public class DictionaryEnImpl implements Dictionary {
     public static final String USERNAME_TAKEN = "Username taken";
     public static final String INVALID_VALUE = "Invalid value";
     public static final String USERNAME_OR_EMAIL_NOT_FOUND = "User with this username / Email was not found";
+    public static final String ONLINE_USERS = "Online Users";
+    public static final String INVITE_TO_PLAY = "Invite To Play";
+
+    public String onlinePlayers() {
+        return ONLINE_USERS;
+    }
+
+    public String inviteToPlay() {
+        return INVITE_TO_PLAY;
+    }
 
     public String usernameOrEmailNotFound() {
         return USERNAME_OR_EMAIL_NOT_FOUND;
