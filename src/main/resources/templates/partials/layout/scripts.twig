@@ -11,5 +11,8 @@
 
 {% if user %}
     <!-- Logged in user scripts-->
+    <script descr="Logged User Constants">
+        var LOGGED_USER_USERNAME = '{{ user.username }}';
+    </script>
     <script src="{{ path('/static/custom/js/sockets/online-players.js') }}"></script>
 {% endif %}
