@@ -58,4 +58,6 @@ public interface Dictionary {
 
     String inviteToPlay();
 
+    String playerNonExistent();
+
 }

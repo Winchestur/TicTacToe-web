@@ -30,6 +30,11 @@ public class DictionaryBgImpl implements Dictionary {
     public static final String USERNAME_OR_EMAIL_NOT_FOUND = "Не е открит потребител с това потр. име / Email";
     public static final String ONLINE_USERS = "Потребители на линия";
     public static final String INVITE_TO_PLAY = "Покана За Игра";
+    public static final String PLAYER_NON_EXISTENT = "Несъществуващ играч";
+
+    public String playerNonExistent() {
+        return PLAYER_NON_EXISTENT;
+    }
 
     public String onlinePlayers() {
         return ONLINE_USERS;
