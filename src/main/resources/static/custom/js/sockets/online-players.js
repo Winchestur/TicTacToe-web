@@ -5,13 +5,13 @@ var OnlinePlayerManager = function (port, onUsersUpdateCallback) {
 
     connection.onmessage = function (msg) {
         if (this.onUsersUpdateCallback) {
-            this.onUsersUpdateCallback(msg.data);
+            this.onUsersUpdateCallback(JSON.parse(msg.data));
         }
     }.bind(this);
 
-    //TODO add a way to keep the user alive
     connection.onerror = webSocketUtils.onSocketError;
 };
+
 
 var OnlinePlayerViewManager = function (onlinePlayersContainer) {
     onlinePlayersContainer = $(onlinePlayersContainer);
@@ -20,13 +20,47 @@ var OnlinePlayerViewManager = function (onlinePlayersContainer) {
         onlinePlayersContainer.html('');
     }
 
-    function addOnlinePlayers(usernameArray) {
-        removeAll();
+    function addOnlinePlayers(newUserNames, allUsers) {
+        //removeAll();
 
-        usernameArray.forEach(function (username) {
-            var onlinePlayerTemplate = $('<a href="#" class="list-group-item online-player">');
-            onlinePlayerTemplate.text(username);
+        getDisplayedNamesElements().forEach(function (usernameHtmlElementPair) {
+            if (allUsers.indexOf(usernameHtmlElementPair.username) === -1) {
+                $(usernameHtmlElementPair.htmlElement).parent().remove();
+            }
+        });
+
+        newUserNames.forEach(function (username) {
+            var onlinePlayerTemplate = $('<li class="list-group-item py-1 online-player-item" style="cursor:pointer; position: relative;">')
+                .append($('<div class="online-player text-success">').text(username));
+
+            onlinePlayerTemplate.append(createOnlinePlayerHoverMenu(username));
+
             onlinePlayersContainer.append(onlinePlayerTemplate);
+        });
+    }
+
+    function createOnlinePlayerHoverMenu(username) {
+        var menuContainer = $('<div class="online-player-menu"></div>');
+        var inviteOption = $('<div class="online-player-option"></div>').text(INVITE_TO_PLAY);
+        //var addFriendOption = $('<div class="online-player-option">Add Friend</div>');
+        inviteOption.on('click', function (eventArgs) {
+            //if event is present, call it
+            if (window.onInviteSend) {
+                window.onInviteSend(username);
+            }
+        });
+
+        menuContainer.append(inviteOption);
+        //menuContainer.append(addFriendOption);
+        return menuContainer;
+    }
+
+    function getDisplayedNamesElements() {
+        return onlinePlayersContainer.find('.online-player').toArray().map(function (htmlElement) {
+            return {
+                username: htmlElement.textContent,
+                htmlElement: htmlElement,
+            };
         });
     }
 
@@ -35,11 +69,34 @@ var OnlinePlayerViewManager = function (onlinePlayersContainer) {
     };
 };
 
+var OnlinePlayerFilterManager = function (currentUsername) {
+
+    var usersFromPreviousMessage = [];
+
+    function filterNamesToDisplay(userNames) {
+        userNames.splice(userNames.indexOf(currentUsername), 1);
+
+        var usersToDisplay = userNames.filter(function (username) {
+            return usersFromPreviousMessage.indexOf(username) === -1;
+        });
+
+        usersFromPreviousMessage = userNames;
+        return usersToDisplay;
+    }
+
+    return {
+        filterNamesToDisplay: filterNamesToDisplay,
+    };
+};
+
+
 $(function () {
-    var onlinePlayerManager = new OnlinePlayerManager(constants.ONLINE_PLAYER_SOCKET_PORT);
     var onlinePlayerViewManager = new OnlinePlayerViewManager($('#onlinePlayersList'));
+    var onlinePlayerManager = new OnlinePlayerManager(constants.ONLINE_PLAYER_SOCKET_PORT);
+
+    var onlinePlayerFilterManager = new OnlinePlayerFilterManager(LOGGED_USER_USERNAME);
 
     onlinePlayerManager.onUsersUpdateCallback = function (usernames) {
-        onlinePlayerViewManager.addOnlinePlayers(JSON.parse(usernames));
-    };
+        onlinePlayerViewManager.addOnlinePlayers(onlinePlayerFilterManager.filterNamesToDisplay(usernames), usernames);
+    }
 });

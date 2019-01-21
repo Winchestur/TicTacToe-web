@@ -1,8 +1,13 @@
+<script descr="Language Constants">
+    var INVITE_TO_PLAY = '{{ dict.inviteToPlay }}';
+</script>
+
 <script src="{{ path('/static/lib/js/jQuery.js') }}"></script>
 <script src="{{ path('/static/lib/js/bootstrap.min.js') }}"></script>
 
 <!-- Custom scripts -->
 <script src="{{ path('/static/custom/js/constants.js') }}"></script>
+<script src="{{ path('/static/custom/js/alerts.js') }}"></script>
 <script src="{{ path('/static/custom/js/utils.js') }}"></script>
 <script src="{{ path('/static/custom/js/fields.js') }}"></script>
 <script src="{{ path('/static/custom/js/header-routing.js') }}"></script>
@@ -10,5 +15,8 @@
 
 {% if user %}
     <!-- Logged in user scripts-->
+    <script descr="Logged User Constants">
+        var LOGGED_USER_USERNAME = '{{ user.username }}';
+    </script>
     <script src="{{ path('/static/custom/js/sockets/online-players.js') }}"></script>
 {% endif %}

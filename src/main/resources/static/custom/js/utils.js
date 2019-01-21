@@ -13,6 +13,16 @@ var utils = {
             }
         }
         return "";
+    },
+
+    randomDomId: function () {
+        var id = null;
+
+        do {
+            id = Math.random().toString(36).replace(/[^a-z]+/g, '');
+        } while (document.getElementById(id) != null);
+
+        return id;
     }
 };
 

@@ -28,6 +28,16 @@ public class DictionaryBgImpl implements Dictionary {
     public static final String USERNAME_TAKEN = "Потр. име е заето";
     public static final String INVALID_VALUE = "Невалидна стойност";
     public static final String USERNAME_OR_EMAIL_NOT_FOUND = "Не е открит потребител с това потр. име / Email";
+    public static final String ONLINE_USERS = "Потребители на линия";
+    public static final String INVITE_TO_PLAY = "Покана За Игра";
+
+    public String onlinePlayers() {
+        return ONLINE_USERS;
+    }
+
+    public String inviteToPlay() {
+        return INVITE_TO_PLAY;
+    }
 
     public String usernameOrEmailNotFound() {
         return USERNAME_OR_EMAIL_NOT_FOUND;
