@@ -10,3 +10,61 @@
 .sidebar-item {
     padding: 5px;
 }
+
+.online-player-menu {
+    position: absolute;
+    visibility: hidden;
+
+    top: 20px;
+    left: 5px;
+
+    background: white;
+
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+
+    z-index: 10;
+}
+
+.online-player-item:hover .online-player-menu {
+    visibility: visible;
+}
+
+.online-player-option {
+    margin-top: 5px;
+    padding: 5px;
+
+    background: white;
+    background: rgba(255, 255, 255, 0.5);
+
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+
+    font-size: 0.8em;
+    color: rgba(0, 0, 0, 0.7);
+
+    -webkit-transition: ease-in 0.1s;
+    -moz-transition: ease-in 0.1s;
+    -ms-transition: ease-in 0.1s;
+    -o-transition: ease-in 0.1s;
+    transition: ease-in 0.1s;
+
+    -webkit-box-shadow: 1px 1px 5px #000000;
+    -moz-box-shadow: 1px 1px 5px #000000;
+    box-shadow: 1px 1px 5px #000000;
+}
+
+.online-player-option:hover {
+    background: green;
+    color: white;
+}
