@@ -125,7 +125,7 @@ $(function () {
     // //Example usage of NotificationViewManager...
     // var exampleNoti = NotificationViewManager.createNotification(
     //     "Testing Noti",
-    //     notificationType.NOTIFICATION_SUCCESS,
+    //     notificationType.NOTIFICATION_INFO,
     //     function (notiId) { //accept
     //         console.log('accepted ' + notiId);
     //         alert('U accepted ' + notiId);
