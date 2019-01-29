@@ -12,10 +12,8 @@ import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 
 import javax.swing.*;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.swing.Timer;
+import java.util.*;
 
 @Service
 public class OnlinePlayerServiceImpl implements OnlinePlayerService {
@@ -43,11 +41,14 @@ public class OnlinePlayerServiceImpl implements OnlinePlayerService {
             this.repository.filterOnlinePlayers(new Date().getTime() - 30000); // 1 min
             this.onlinePlayersSocket.sendMessage(gson.toJson(this.findOnlinePlayerNames()));
 
-           synchronized (this.onlinePlayersSocket) {
-               for (User user : this.sessionUserMap.values()) {
-                   this.addOnlineUser(user);//TODO put this code in a bigger timer.
-               }
-           }
+            synchronized (this.onlinePlayersSocket) {
+                try {
+                    for (User user : this.sessionUserMap.values()) {
+                        this.addOnlineUser(user);//TODO put this code in a bigger timer.
+                    }
+                } catch (ConcurrentModificationException ignored) {
+                }
+            }
         });
 
         refreshTimer.setRepeats(true);

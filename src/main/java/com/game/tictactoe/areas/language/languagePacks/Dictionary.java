@@ -54,4 +54,14 @@ public interface Dictionary {
 
     String usernameOrEmailNotFound();
 
+    String onlinePlayers();
+
+    String inviteToPlay();
+
+    String playerNonExistent();
+
+    String cannotInviteYourself();
+
+    String youHaveAnotherInviteAwaiting();
+
 }

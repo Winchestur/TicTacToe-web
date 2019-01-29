@@ -93,17 +93,16 @@
     visibility: visible;
 }
 
-/* TODO replace those colors with rgba to add transparency */
 .alerts-container .noti-danger {
-    background: red;
+    background: #f54338;
 }
 
 .alerts-container .noti-success {
-    background: green;
+    background: #8bc349;
 }
 
 .alerts-container .noti-info {
-    background: #17a2b8;
+    background: #05a9f1;
 }
 
 @media screen and (max-width: 768px) {
