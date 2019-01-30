@@ -9,13 +9,11 @@ import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
 import java.net.InetSocketAddress;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public abstract class BaseWebSocketServer extends WebSocketServer {
 
-    private Map<String, WebSocket> sockets;
+    private Map<String, List<WebSocket>> sockets;
 
     private OnMessage onMessage;
 
@@ -37,10 +35,11 @@ public abstract class BaseWebSocketServer extends WebSocketServer {
         String sessionId = SocketUtils.extractSessionId(clientHandshake.getResourceDescriptor());
         if (this.onOpen != null) {
             if (!this.onOpen.onOpen(webSocket, clientHandshake, sessionId)) {
-                return;
+                //return;
             }
         }
-        this.sockets.put(sessionId, webSocket);
+
+        this.addSocketConnection(sessionId, webSocket);
     }
 
     @Override
@@ -49,7 +48,7 @@ public abstract class BaseWebSocketServer extends WebSocketServer {
             this.onClose.onClose(conn, code, reason, remote);
         }
 
-        this.sockets.remove(SocketUtils.extractSessionId(conn.getResourceDescriptor()));
+        this.removeSocketConnection(SocketUtils.extractSessionId(conn.getResourceDescriptor()), conn);
     }
 
     @Override
@@ -71,27 +70,33 @@ public abstract class BaseWebSocketServer extends WebSocketServer {
     }
 
     public void sendMessage(String message) {
-        for (WebSocket socket : this.sockets.values()) {
-            socket.send(message);
+        for (List<WebSocket> sockets : this.getSockets().values()) {
+            for (WebSocket webSocket : sockets) {
+                webSocket.send(message);
+            }
         }
     }
 
     public void sendMessage(byte[] message) {
-        for (WebSocket socket : this.sockets.values()) {
-            socket.send(message);
+        for (List<WebSocket> sockets : this.getSockets().values()) {
+            for (WebSocket webSocket : sockets) {
+                webSocket.send(message);
+            }
         }
     }
 
     public boolean sendMessageToSpecificSubscriber(String sessionId, String message) {
         if (this.getSockets().containsKey(sessionId)) {
-            this.getSockets().get(sessionId).send(message);
+            this.getSockets().get(sessionId).forEach(s -> {
+                s.send(message);
+            });
             return true;
         }
 
         return false;
     }
 
-    public Map<String, WebSocket> getSockets() {
+    public Map<String, List<WebSocket>> getSockets() {
         return this.sockets;
     }
 
@@ -106,5 +111,27 @@ public abstract class BaseWebSocketServer extends WebSocketServer {
 
     public void setOnClose(OnClose onClose) {
         this.onClose = onClose;
+    }
+
+    private void addSocketConnection(String sessionId, WebSocket socket) {
+        if (!this.getSockets().containsKey(sessionId)) {
+            this.getSockets().put(sessionId, new ArrayList<>());
+        }
+
+        this.getSockets().get(sessionId).add(socket);
+        System.out.println(this.getSockets().get(sessionId).size());
+    }
+
+    private void removeSocketConnection(String sessionId, WebSocket webSocket) {
+        if (!this.getSockets().containsKey(sessionId)) {
+            return;
+        }
+
+        List<WebSocket> sockets = this.getSockets().get(sessionId);
+        sockets.remove(webSocket);
+
+        if (sockets.size() < 1) {
+            this.getSockets().remove(sessionId);
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.game.tictactoe;
 
+import com.cyecize.http.HttpSession;
 import com.cyecize.summer.areas.security.annotations.PreAuthorize;
 import com.cyecize.summer.areas.security.enums.AuthorizationType;
 import com.cyecize.summer.areas.security.models.Principal;
@@ -23,12 +24,12 @@ public class TestController {
 
 
     @GetMapping("/test")
-    public String test(Principal principal) {
+    public String test(Principal principal, HttpSession session) {
         User user = (User) principal.getUser();
 
         PushNotification notification = new PushNotification(NotificationSeverity.SUCCESS, NotificationType.NOTIFICATION, "Hi, mate");
 
-        this.notificationService.sendAsync(user, notification);
+        this.notificationService.sendAsync(session.getId(), notification);
 
         return "redirect:/";
     }
