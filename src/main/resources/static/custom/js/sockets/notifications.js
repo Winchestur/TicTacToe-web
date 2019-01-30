@@ -15,15 +15,27 @@ var NotificationSocketManager = function (port, onMessageCallback) {
 $(function () {
     var notificationManager = new NotificationSocketManager(constants.NOTIFICATIONS_SOCKET_PORT);
 
-    notificationManager.onNotificationCallback = function (data) {
-        console.log(data);
+    var notificationTypeHandler = {
+        GAME_INVITE: function (notification) {
+            var notificationElement = NotificationViewManager.createNotification(notification.message + ' wants to play with you!',
+                notificationSeverity[notification.severity],
+                function (accept) {
+                    alert(accept)
+                },
+                function (decline) {
+                    alert(decline + ' declined');
+                });
 
-        var notification = NotificationViewManager.createNotification(data.message, notificationSeverity[data.severity], function () {
-            alert('accepred');
-        }, function () {
-            alert('declined');
-        });
+            NotificationViewManager.showNotification(notificationElement, 10000)
+        },
+        NOTIFICATION: function (notification) {
+            var notificationElement = NotificationViewManager.createNotification(notification.message, notificationSeverity[notification.severity]);
 
-        NotificationViewManager.showNotification(notification, 5000);
+            NotificationViewManager.showNotification(notificationElement, 10000);
+        }
+    };
+
+    notificationManager.onNotificationCallback = function (notification) {
+        notificationTypeHandler[notification.notificationType](notification);
     }
 });

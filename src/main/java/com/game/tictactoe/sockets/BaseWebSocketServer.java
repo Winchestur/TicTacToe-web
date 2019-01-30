@@ -35,7 +35,7 @@ public abstract class BaseWebSocketServer extends WebSocketServer {
         String sessionId = SocketUtils.extractSessionId(clientHandshake.getResourceDescriptor());
         if (this.onOpen != null) {
             if (!this.onOpen.onOpen(webSocket, clientHandshake, sessionId)) {
-                //return;
+                return;
             }
         }
 
@@ -119,7 +119,6 @@ public abstract class BaseWebSocketServer extends WebSocketServer {
         }
 
         this.getSockets().get(sessionId).add(socket);
-        System.out.println(this.getSockets().get(sessionId).size());
     }
 
     private void removeSocketConnection(String sessionId, WebSocket webSocket) {
