@@ -1,6 +1,12 @@
 package com.game.tictactoe.controllers;
 
+import com.cyecize.summer.areas.validation.interfaces.BindingResult;
+import com.cyecize.summer.areas.validation.models.FieldError;
 import com.cyecize.summer.common.models.ModelAndView;
+import com.game.tictactoe.areas.language.services.LocalLanguage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class BaseController {
 
@@ -27,5 +33,15 @@ public abstract class BaseController {
     protected ModelAndView view(String viewName, ModelAndView modelAndView) {
         modelAndView.setView(viewName);
         return this.finalizeView(modelAndView);
+    }
+
+    protected List<String> translateErrors(BindingResult bindingResult, LocalLanguage localLanguage) {
+        List<String> errors = new ArrayList<>();
+
+        for (FieldError error : bindingResult.getErrors()) {
+            errors.add(localLanguage.forName(error.getMessage()));
+        }
+
+        return errors;
     }
 }
