@@ -6,6 +6,7 @@ import com.game.tictactoe.areas.onlinePlayers.entities.OnlinePlayer;
 import com.game.tictactoe.areas.onlinePlayers.repositories.OnlinePlayerRepository;
 import com.game.tictactoe.areas.onlinePlayers.sockets.OnlinePlayerWebSocketServer;
 import com.game.tictactoe.areas.users.entities.User;
+import com.game.tictactoe.constants.WebConstants;
 import com.game.tictactoe.utils.SocketUtils;
 import com.google.gson.Gson;
 import org.java_websocket.WebSocket;
@@ -38,7 +39,9 @@ public class OnlinePlayerServiceImpl implements OnlinePlayerService {
         Gson gson = new Gson();
 
         Timer refreshTimer = new Timer(1000, e -> {
-            this.repository.filterOnlinePlayers(new Date().getTime() - 30000); // 1 min
+            long time = new Date().getTime();
+
+            this.repository.filterOnlinePlayers(time - WebConstants.ONLINE_PLAYER_LEASE_TIME_MILLIS);
             this.onlinePlayersSocket.sendMessage(gson.toJson(this.findOnlinePlayerNames()));
 
             synchronized (this.onlinePlayersSocket) {

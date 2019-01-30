@@ -7,6 +7,10 @@ public interface NotificationService {
 
     void sendToAll(PushNotification message);
 
+    void sendAsync(User user, PushNotification message);
+
+    void sendAsync(String sessionId, PushNotification message);
+
     boolean sendToUser(User user, PushNotification message);
 
     boolean sendToUser(String sessionId, PushNotification message);
