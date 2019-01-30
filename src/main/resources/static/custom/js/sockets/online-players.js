@@ -8,7 +8,7 @@ var OnlinePlayerManager = function (port, onUsersUpdateCallback) {
             this.onUsersUpdateCallback(JSON.parse(msg.data));
         }
     }.bind(this);
- 
+
     connection.onerror = webSocketUtils.onSocketError;
 };
 
