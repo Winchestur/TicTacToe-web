@@ -58,4 +58,10 @@ public interface Dictionary {
 
     String inviteToPlay();
 
+    String playerNonExistent();
+
+    String cannotInviteYourself();
+
+    String youHaveAnotherInviteAwaiting();
+
 }
