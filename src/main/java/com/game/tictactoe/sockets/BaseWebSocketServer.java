@@ -82,6 +82,15 @@ public abstract class BaseWebSocketServer extends WebSocketServer {
         }
     }
 
+    public boolean sendMessageToSpecificSubscriber(String sessionId, String message) {
+        if (this.getSockets().containsKey(sessionId)) {
+            this.getSockets().get(sessionId).send(message);
+            return true;
+        }
+
+        return false;
+    }
+
     public Map<String, WebSocket> getSockets() {
         return this.sockets;
     }
