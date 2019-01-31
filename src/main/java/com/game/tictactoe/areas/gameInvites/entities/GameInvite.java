@@ -32,7 +32,7 @@ public class GameInvite {
 
     public GameInvite() {
         this.timeRequested = new Date().getTime();
-        this.state = GameInviteState.AWAITING;
+        this.state = GameInviteState.CREATED;
     }
 
     public Long getId() {
