@@ -64,4 +64,7 @@ public interface Dictionary {
 
     String youHaveAnotherInviteAwaiting();
 
+    String inviteHasBeenSentTo();
+
+    String inviteHasBeenDeclined();
 }
