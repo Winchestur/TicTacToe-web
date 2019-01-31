@@ -25,12 +25,12 @@ public class TestController {
 
     @GetMapping("/test")
     public String test(Principal principal, HttpSession session) {
-        User user = (User) principal.getUser();
-
-        PushNotification notification = new PushNotification(NotificationSeverity.DANGER, NotificationType.GAME_INVITE, "Hi, mate");
-
-        this.notificationService.sendAsync(user, notification);
-
-        return "redirect:/";
+//        User user = (User) principal.getUser();
+//
+//        PushNotification notification = new PushNotification(NotificationSeverity.DANGER, NotificationType.GAME_INVITE, "Hi, mate");
+//
+//        this.notificationService.sendAsync(user, notification);
+//
+       return "redirect:/";
     }
 }

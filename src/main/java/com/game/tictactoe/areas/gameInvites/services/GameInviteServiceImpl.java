@@ -9,7 +9,7 @@ import com.game.tictactoe.areas.users.entities.User;
 import java.util.List;
 
 @Service
-public class GameInviteServiceImpl implements GameInviteService{
+public class GameInviteServiceImpl implements GameInviteService {
 
     private final GameInviteRepository repository;
 
@@ -28,22 +28,27 @@ public class GameInviteServiceImpl implements GameInviteService{
     }
 
     @Override
-    public boolean isInvitePresent(User invitedPlayer, User inviterPlayer) {
-        return false;
+    public boolean isInvitePresentWithParticipants(User invitedPlayer, User inviterPlayer) {
+        return this.repository.findByParticipants(inviterPlayer, invitedPlayer) != null;
+    }
+
+    @Override
+    public GameInvite findById(Long id) {
+        return this.repository.findById(id);
     }
 
     @Override
     public GameInvite findSentInvite(User user) {
-        return null;
+        return this.repository.findSentInviteByUser(user);
     }
 
     @Override
-    public List<String> findGameInviteUsernames(User user) {
-        return null;
+    public List<String> findGameInvitingUserNamesForUser(User user) {
+        return this.repository.findGameInvitingUserNames(user);
     }
 
     @Override
-    public List<GameInvite> findGameInvitations(User user) {
-        return null;
+    public List<GameInvite> findGameInvitationsForUser(User user) {
+        return this.repository.findGameInvitesByUser(user);
     }
 }

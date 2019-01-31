@@ -8,6 +8,7 @@ import com.cyecize.summer.areas.validation.interfaces.BindingResult;
 import com.cyecize.summer.common.annotations.Controller;
 import com.cyecize.summer.common.annotations.routing.PostMapping;
 import com.cyecize.summer.common.models.JsonResponse;
+import com.game.tictactoe.areas.gameInvites.bindingModels.InviteBindingModel;
 import com.game.tictactoe.areas.gameInvites.bindingModels.PlayerBindingModel;
 import com.game.tictactoe.areas.gameInvites.exceptions.UserAlreadySentInviteException;
 import com.game.tictactoe.areas.gameInvites.services.GameInviteService;
@@ -45,7 +46,9 @@ public class GameInviteController extends BaseController {
             response.addAttribute(JSON_RESPONSE_ERRORS_KEY, super.translateErrors(bindingResult, this.localLanguage));
             response.setStatusCode(HttpStatus.BAD_REQUEST);
             return response;
-        } else if (playerInviter.getUsername().equals(playerToBeInvited.getUsername())) {
+        }
+
+        if (playerInviter.getUsername().equals(playerToBeInvited.getUsername())) {
             response.addAttribute(JSON_RESPONSE_ERRORS_KEY, new ArrayList<String>() {{
                 add(localLanguage.dictionary().cannotInviteYourself());
             }});
@@ -61,6 +64,19 @@ public class GameInviteController extends BaseController {
                 add(localLanguage.dictionary().youHaveAnotherInviteAwaiting());
             }});
             response.setStatusCode(HttpStatus.BAD_REQUEST);
+        }
+
+        return response;
+    }
+
+    public JsonResponse declineInvite(Principal principal) {
+        JsonResponse response = new JsonResponse();
+        User inviter = (User) principal.getUser();
+
+        if (this.gameInviteService.cancelInvite(this.gameInviteService.findSentInvite(inviter))) {
+            response.addAttribute("info", "Success");
+        } else {
+            response.addAttribute("info", "Fail");
         }
 
         return response;

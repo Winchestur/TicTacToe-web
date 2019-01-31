@@ -22,33 +22,46 @@ public class GameInviteRepository extends BaseRepository {
         }));
     }
 
+    public GameInvite findById(Long id) {
+        return super.execute((actionResult -> actionResult.setResult(
+                super.entityManager.createQuery("SELECT gi FROM GameInvite gi WHERE gi.id = :gid", GameInvite.class)
+                        .setParameter("gid", id)
+                        .getResultStream().findFirst().orElse(null)
+        ))).getResult();
+    }
+
+    public GameInvite findByParticipants(User inviter, User invited) {
+        return super.execute((actionResult ->
+                actionResult.setResult(super.entityManager.createQuery(
+                        "SELECT gi FROM GameInvite gi JOIN gi.userInviter AS inviter JOIN gi.userInvited AS invited WHERE inviter.id = :inviterId AND invited.id = :invitedId", GameInvite.class)
+                        .setParameter("inviterId", inviter.getId())
+                        .setParameter("invitedId", invited.getId())
+                        .getResultStream().findFirst().orElse(null)
+                )
+        )).getResult();
+    }
+
     public GameInvite findSentInviteByUser(User user) {
-        return super.execute((repositoryActionResult -> {
-            repositoryActionResult.setResult(
-                    super.entityManager.createQuery("SELECT gi FROM GameInvite gi JOIN gi.userInviter AS ui WHERE ui.id = :uid", GameInvite.class)
-                            .setParameter("uid", user.getId())
-                            .getResultStream().findFirst().orElse(null)
-            );
-        })).getResult();
+        return super.execute((repositoryActionResult -> repositoryActionResult.setResult(
+                super.entityManager.createQuery("SELECT gi FROM GameInvite gi JOIN gi.userInviter AS ui WHERE ui.id = :uid", GameInvite.class)
+                        .setParameter("uid", user.getId())
+                        .getResultStream().findFirst().orElse(null)
+        ))).getResult();
     }
 
     public List<String> findGameInvitingUserNames(User user) {
-        return super.execute((repositoryActionResult -> {
-            repositoryActionResult.setResult(
-                    super.entityManager.createQuery("SELECT inviter.username FROM GameInvite gi JOIN gi.userInvited AS invited JOIN gi.userInviter AS inviter WHERE invited.id = :uid", String.class)
-                            .setParameter("uid", user.getId())
-                            .getResultList()
-            );
-        })).getResult();
+        return super.execute((repositoryActionResult -> repositoryActionResult.setResult(
+                super.entityManager.createQuery("SELECT inviter.username FROM GameInvite gi JOIN gi.userInvited AS invited JOIN gi.userInviter AS inviter WHERE invited.id = :uid", String.class)
+                        .setParameter("uid", user.getId())
+                        .getResultList()
+        ))).getResult();
     }
 
     public List<GameInvite> findGameInvitesByUser(User user) {
-        return super.execute((repositoryActionResult -> {
-            repositoryActionResult.setResult(
-                    super.entityManager.createQuery("SELECT gi FROM GameInvite gi JOIN gi.userInvited AS uinvited WHERE uinvited.id = :uic", GameInvite.class)
-                            .setParameter("uic", user.getId())
-                            .getSingleResult()
-            );
-        })).getResult();
+        return super.execute((repositoryActionResult -> repositoryActionResult.setResult(
+                super.entityManager.createQuery("SELECT gi FROM GameInvite gi JOIN gi.userInvited AS uinvited WHERE uinvited.id = :uid", GameInvite.class)
+                        .setParameter("uid", user.getId())
+                        .getSingleResult()
+        ))).getResult();
     }
 }

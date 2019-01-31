@@ -12,11 +12,13 @@ public interface GameInviteService {
 
     boolean cancelInvite(GameInvite invite);
 
-    boolean isInvitePresent(User invitedPlayer, User inviterPlayer);
+    boolean isInvitePresentWithParticipants(User invitedPlayer, User inviterPlayer);
+
+    GameInvite findById(Long id);
 
     GameInvite findSentInvite(User user);
 
-    List<String> findGameInviteUsernames(User user);
+    List<String> findGameInvitingUserNamesForUser(User user);
 
-    List<GameInvite> findGameInvitations(User user);
+    List<GameInvite> findGameInvitationsForUser(User user);
 }
