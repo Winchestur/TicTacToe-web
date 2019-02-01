@@ -6,6 +6,7 @@ import com.game.tictactoe.areas.gameInvites.enums.GameInviteState;
 import com.game.tictactoe.areas.users.entities.User;
 import com.game.tictactoe.repositories.BaseRepository;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -68,8 +69,8 @@ public class GameInviteRepository extends BaseRepository {
 
     public List<GameInvite> findByInviteStateAndTimeLessThan(long minTime, GameInviteState... states) {
         return super.execute(actionResult -> actionResult.setResult(
-                super.entityManager.createQuery("SELECT gi FROM GameInvite gi WHERE gi.state IN :giStates AND gi.timeRequested <= :minInviteTime", GameInvite.class)
-                        .setParameter("giStates", states)
+                super.entityManager.createQuery("SELECT gi FROM GameInvite gi WHERE  gi.timeRequested <= :minInviteTime AND gi.state IN :giStates", GameInvite.class)
+                        .setParameter("giStates",  Arrays.asList(states))
                         .setParameter("minInviteTime", minTime)
                         .getResultList()
                 )

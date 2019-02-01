@@ -3,6 +3,7 @@ package com.game.tictactoe.areas.gameInvites.services;
 import com.cyecize.summer.common.annotations.PostConstruct;
 import com.cyecize.summer.common.annotations.Service;
 import com.game.tictactoe.areas.gameInvites.entities.GameInvite;
+import com.game.tictactoe.areas.gameInvites.enums.GameInviteState;
 import com.game.tictactoe.areas.gameInvites.exceptions.UserAlreadySentInviteException;
 import com.game.tictactoe.areas.gameInvites.repositories.GameInviteRepository;
 import com.game.tictactoe.areas.users.entities.User;
@@ -36,7 +37,10 @@ public class GameInviteServiceImpl implements GameInviteService {
 
     @Override
     public void invalidateExpiredInvites() {
-        List<GameInvite> expiredInvites = this.repository.findByInviteStateAndTimeLessThan(new Date().getTime() - WebConstants.GAME_INVITE_MAX_ACCEPT_TIME_MILLIS);
+        List<GameInvite> expiredInvites = this.repository.findByInviteStateAndTimeLessThan(
+                new Date().getTime() - WebConstants.GAME_INVITE_MAX_ACCEPT_TIME_MILLIS,
+                GameInviteState.CREATED, GameInviteState.AWAITING
+        );
     }
 
     @Override
