@@ -2,6 +2,7 @@ package com.game.tictactoe.areas.gameInvites.repositories;
 
 import com.cyecize.summer.common.annotations.Service;
 import com.game.tictactoe.areas.gameInvites.entities.GameInvite;
+import com.game.tictactoe.areas.gameInvites.enums.GameInviteState;
 import com.game.tictactoe.areas.users.entities.User;
 import com.game.tictactoe.repositories.BaseRepository;
 
@@ -10,7 +11,7 @@ import java.util.List;
 @Service
 public class GameInviteRepository extends BaseRepository {
 
-    public void filterInvitesByTime(long minMillis) {
+    public void removeInvitesByTimeAndState(long minMillis) {
         super.execute((repositoryActionResult -> {
             List<GameInvite> invites = super.entityManager.createQuery("SELECT gi FROM GameInvite gi WHERE gi.timeRequested < :millis", GameInvite.class)
                     .setParameter("millis", minMillis)
@@ -63,5 +64,15 @@ public class GameInviteRepository extends BaseRepository {
                         .setParameter("uid", user.getId())
                         .getSingleResult()
         ))).getResult();
+    }
+
+    public List<GameInvite> findByInviteStateAndTimeLessThan(long minTime, GameInviteState... states) {
+        return super.execute(actionResult -> actionResult.setResult(
+                super.entityManager.createQuery("SELECT gi FROM GameInvite gi WHERE gi.state IN :giStates AND gi.timeRequested <= :minInviteTime", GameInvite.class)
+                        .setParameter("giStates", states)
+                        .setParameter("minInviteTime", minTime)
+                        .getResultList()
+                )
+        ).getResult();
     }
 }
