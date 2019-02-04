@@ -8,15 +8,25 @@ import java.util.List;
 
 public interface GameInviteService {
 
+    void acceptInvite(GameInvite gameInvite);
+
+    void invalidateExpiredInvites();
+
+    void filterOldInvites();
+
+    void sendNotificationForNewInvites();
+
     void invitePlayer(User inviter, User otherPlayer) throws UserAlreadySentInviteException;
 
     boolean cancelInvite(GameInvite invite);
 
-    boolean isInvitePresent(User invitedPlayer, User inviterPlayer);
+    boolean isInvitePresentWithParticipants(User invitedPlayer, User inviterPlayer);
+
+    GameInvite findById(Long id);
 
     GameInvite findSentInvite(User user);
 
-    List<String> findGameInviteUsernames(User user);
+    List<String> findGameInvitingUserNamesForUser(User user);
 
-    List<GameInvite> findGameInvitations(User user);
+    List<GameInvite> findGameInvitationsForUser(User user);
 }

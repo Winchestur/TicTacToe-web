@@ -23,11 +23,19 @@ var utils = {
         } while (document.getElementById(id) != null);
 
         return id;
+    },
+
+    translate: function (textOrKey) {
+        if (locale[textOrKey]) {
+            return locale[textOrKey];
+        }
+
+        return textOrKey;
     }
 };
 
 var webSocketUtils = {
-    createWebSocket: function (port) {
+    createWebSocket: function (port, properties) {
         var baseUrl = BASE_URL;
 
         //If the base url has port, remove it.
@@ -35,11 +43,20 @@ var webSocketUtils = {
             baseUrl = baseUrl.substring(0, baseUrl.indexOf(':'));
         }
 
+        //If properties are present, convert them to a query string.
+        var propertiesQueryString = "";
+        if (properties) {
+            Object.keys(properties).forEach(function (propKey) {
+                propertiesQueryString += '&' + propKey + '=' + properties[propKey];
+            });
+        }
+
         return new WebSocket(
             "ws:" + baseUrl + ":" + port +
-            "?" + constants.SOCKET_INIT_SESSION_ID_PARAM_NAME + "=" + utils.getCookie(constants.JAVACHE_SESSION_ID)
+            "?" + constants.SOCKET_INIT_SESSION_ID_PARAM_NAME + "=" + utils.getCookie(constants.JAVACHE_SESSION_ID) + propertiesQueryString
         );
-    },
+    }
+    ,
 
     onSocketError: function (error) {
         alert("Error with socket: " + error);

@@ -33,6 +33,26 @@ public class DictionaryBgImpl implements Dictionary {
     public static final String PLAYER_NON_EXISTENT = "Несъществуващ играч";
     public static final String CANNOT_INVITE_YOURSELF = "Не може да поканите себе си!";
     public static final String YOU_HAVE_ANOTHER_INVITE_AWAITING = "Имате друга изпратена покана";
+    public static final String INVITE_HAS_BEEN_SENT_TO = "Понаната беше изпратена до ";
+    public static final String INVITE_HAS_BEEN_DECLINED = "Поканата беше отказана";
+    public static final String CLICK_TO_ACCEPT = "Кликнете, за да приемете.";
+    public static final String CHALLENGES_YOU = " ви предизвиква. ";
+
+    public String wantsToPlayWithYou() {
+        return CHALLENGES_YOU;
+    }
+
+    public String clickToAccept() {
+        return CLICK_TO_ACCEPT;
+    }
+
+    public String inviteHasBeenDeclined() {
+        return INVITE_HAS_BEEN_DECLINED;
+    }
+
+    public String inviteHasBeenSentTo() {
+        return INVITE_HAS_BEEN_SENT_TO;
+    }
 
     public String youHaveAnotherInviteAwaiting() {
         return YOU_HAVE_ANOTHER_INVITE_AWAITING;
