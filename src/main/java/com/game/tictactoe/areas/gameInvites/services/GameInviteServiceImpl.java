@@ -7,6 +7,7 @@ import com.game.tictactoe.areas.gameInvites.enums.GameInviteState;
 import com.game.tictactoe.areas.gameInvites.exceptions.UserAlreadySentInviteException;
 import com.game.tictactoe.areas.gameInvites.repositories.GameInviteRepository;
 import com.game.tictactoe.areas.pushNotifications.enums.NotificationSeverity;
+import com.game.tictactoe.areas.pushNotifications.enums.NotificationType;
 import com.game.tictactoe.areas.pushNotifications.messages.GameInviteMessage;
 import com.game.tictactoe.areas.pushNotifications.models.PushNotification;
 import com.game.tictactoe.areas.pushNotifications.services.NotificationService;
@@ -61,7 +62,7 @@ public class GameInviteServiceImpl implements GameInviteService {
         List<GameInvite> invites = this.repository.findByStates(GameInviteState.CREATED);
 
         for (GameInvite invite : invites) {
-            this.notificationService.sendAsync(invite.getUserInvited(), new PushNotification(new GameInviteMessage(GameInviteState.AWAITING, invite.getId(), "Someone wants to play... Translate me")));
+            this.notificationService.sendAsync(invite.getUserInvited(), new PushNotification(NotificationType.GAME_INVITE, this.createInvitePushMessage(invite, GameInviteState.AWAITING)));
             invite.setState(GameInviteState.AWAITING);
             this.repository.merge(invite);
         }
@@ -129,5 +130,13 @@ public class GameInviteServiceImpl implements GameInviteService {
             timer.setRepeats(true);
             timer.start();
         }
+    }
+
+    private GameInviteMessage createInvitePushMessage(GameInvite gameInvite, GameInviteState state) {
+        return new GameInviteMessage(state, gameInvite.getId(), gameInvite.getUserInviter().getUsername(), gameInvite.getUserInvited().getUsername());
+    }
+
+    private GameInviteMessage createInvitePushMessage(GameInvite gameInvite, GameInviteState state, Long gameId) {
+        return new GameInviteMessage(state, gameInvite.getId(), gameInvite.getUserInviter().getUsername(), gameInvite.getUserInvited().getUsername(), gameId);
     }
 }

@@ -70,7 +70,7 @@ var GameInviteManager = function () {
 $(function () {
     window.onInviteSend = function (username) {
         GameInviteManager.sendGameInvite(username, function (succ) {
-            NotificationViewManager.showNotification(NotificationViewManager.createNotification(locale.INVITE_HAS_BEEN_SENT_TO + username, notificationSeverity.SUCCESS), 5000);
+            NotificationViewManager.showNotification(NotificationViewManager.createNotification(locale.inviteHasBeenSentTo + username, notificationSeverity.SUCCESS), 5000);
         }, function (err) {
             console.log(err);
         });

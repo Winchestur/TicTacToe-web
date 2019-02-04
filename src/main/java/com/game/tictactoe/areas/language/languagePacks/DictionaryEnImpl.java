@@ -34,6 +34,16 @@ public class DictionaryEnImpl implements Dictionary {
     public static final String YOU_HAVE_ANOTHER_INVITE_AWAITING = "You have another invite awaiting";
     public static final String INVITE_HAS_BEEN_SENT_TO = "Invite has been sent to ";
     public static final String INVITE_HAS_BEEN_DECLINED = "Invite has been declined";
+    public static final String CLICK_TO_ACCEPT = "Click to accept.";
+    public static final String CHALLENGES_YOU = " wants to play with you. ";
+
+    public String wantsToPlayWithYou() {
+        return CHALLENGES_YOU;
+    }
+
+    public String clickToAccept() {
+        return CLICK_TO_ACCEPT;
+    }
 
     public String inviteHasBeenDeclined() {
         return INVITE_HAS_BEEN_DECLINED;

@@ -67,4 +67,8 @@ public interface Dictionary {
     String inviteHasBeenSentTo();
 
     String inviteHasBeenDeclined();
+
+    String wantsToPlayWithYou();
+
+    String clickToAccept();
 }

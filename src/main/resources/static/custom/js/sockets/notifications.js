@@ -18,7 +18,7 @@ $(function () {
     var notificationTypeHandler = {
         GAME_INVITE: function (notification) {
             console.log(notification);
-            var notificationElement = NotificationViewManager.createNotification(notification.message + ' wants to play with you!',
+            var notificationElement = NotificationViewManager.createNotification(notification.message.inviterUsername + locale.wantsToPlayWithYou + locale.clickToAccept,
                 notificationSeverity[notification.severity],
                 function (accept) {
                     alert(accept)
@@ -31,7 +31,7 @@ $(function () {
         },
         NOTIFICATION: function (notification) {
             var notificationElement = NotificationViewManager.createNotification(notification.message.message, notificationSeverity[notification.severity]);
-
+            console.log(notification);
             NotificationViewManager.showNotification(notificationElement, 10000);
         }
     };

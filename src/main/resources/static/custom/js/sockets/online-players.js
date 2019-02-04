@@ -41,7 +41,7 @@ var OnlinePlayerViewManager = function (onlinePlayersContainer) {
 
     function createOnlinePlayerHoverMenu(username) {
         var menuContainer = $('<div class="online-player-menu"></div>');
-        var inviteOption = $('<div class="online-player-option"></div>').text(locale.INVITE_TO_PLAY);
+        var inviteOption = $('<div class="online-player-option"></div>').text(locale.inviteToPlay);
         //var addFriendOption = $('<div class="online-player-option">Add Friend</div>');
         inviteOption.on('click', function (eventArgs) {
             //if event is present, call it

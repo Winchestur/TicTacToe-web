@@ -8,18 +8,21 @@ public class GameInviteMessage implements PushMessage {
 
     private final Long inviteId;
 
-    private final String message;
+    private final String inviterUsername;
+
+    private final String invitedUsername;
 
     private final Long gameId;
 
-    public GameInviteMessage(GameInviteState state, Long inviteId, String message) {
-        this(state, inviteId, message, null);
+    public GameInviteMessage(GameInviteState state, Long inviteId, String inviterUsername, String invitedUsername) {
+        this(state, inviteId, inviterUsername, invitedUsername, null);
     }
 
-    public GameInviteMessage(GameInviteState state, Long inviteId, String message, Long gameId) {
+    public GameInviteMessage(GameInviteState state, Long inviteId, String inviterUsername, String invitedUsername, Long gameId) {
         this.state = state;
         this.inviteId = inviteId;
-        this.message = message;
+        this.inviterUsername = inviterUsername;
+        this.invitedUsername = invitedUsername;
         this.gameId = gameId;
     }
 }
