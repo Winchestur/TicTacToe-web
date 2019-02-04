@@ -32,17 +32,17 @@
     -moz-box-shadow: 1px 1px 5px rebeccapurple;
     box-shadow: 1px 1px 5px rebeccapurple;
 
-    opacity: 1;
+    opacity: 0.98;
     cursor: pointer;
     /*visibility: hidden; TODO set to hidden and then show with JS*/
 }
 
 .alerts-container .noti-box:hover {
-    -webkit-box-shadow: 1px 1px 10px #ffd4cd;
-    -moz-box-shadow: 1px 1px 10px #ffd4cd;
-    box-shadow: 1px 1px 10px #ffd4cd;
+    -webkit-box-shadow: 1px 1px 3px #ffd4cd;
+    -moz-box-shadow: 1px 1px 3px #ffd4cd;
+    box-shadow: 1px 1px 3px #ffd4cd;
 
-    opacity: 0.9;
+    opacity: 1;
 }
 
 .alerts-container .noti-box .hide-noti-box {
