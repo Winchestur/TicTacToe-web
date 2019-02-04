@@ -44,9 +44,14 @@ public class GameInviteRepository extends BaseRepository {
     }
 
     public GameInvite findSentInviteByUser(User user) {
+        return this.findSentInviteByUser(user, GameInviteState.AWAITING);
+    }
+
+    public GameInvite findSentInviteByUser(User user, GameInviteState... states) {
         return super.execute((repositoryActionResult -> repositoryActionResult.setResult(
-                super.entityManager.createQuery("SELECT gi FROM GameInvite gi JOIN gi.userInviter AS ui WHERE ui.id = :uid", GameInvite.class)
+                super.entityManager.createQuery("SELECT gi FROM GameInvite gi JOIN gi.userInviter AS ui WHERE ui.id = :uid AND gi.state IN :giStates", GameInvite.class)
                         .setParameter("uid", user.getId())
+                        .setParameter("giStates", Arrays.asList(states))
                         .getResultStream().findFirst().orElse(null)
         ))).getResult();
     }
@@ -67,10 +72,18 @@ public class GameInviteRepository extends BaseRepository {
         ))).getResult();
     }
 
+    public List<GameInvite> findByStates(GameInviteState... states) {
+        return super.execute(actionResult -> actionResult.setResult(
+                super.entityManager.createQuery("SELECT gi FROM GameInvite gi WHERE gi.state IN :states", GameInvite.class)
+                        .setParameter("states", Arrays.asList(states))
+                        .getResultList()
+        )).getResult();
+    }
+
     public List<GameInvite> findByInviteStateAndTimeLessThan(long minTime, GameInviteState... states) {
         return super.execute(actionResult -> actionResult.setResult(
                 super.entityManager.createQuery("SELECT gi FROM GameInvite gi WHERE  gi.timeRequested <= :minInviteTime AND gi.state IN :giStates", GameInvite.class)
-                        .setParameter("giStates",  Arrays.asList(states))
+                        .setParameter("giStates", Arrays.asList(states))
                         .setParameter("minInviteTime", minTime)
                         .getResultList()
                 )

@@ -8,9 +8,13 @@ import java.util.List;
 
 public interface GameInviteService {
 
+    void acceptInvite(GameInvite gameInvite);
+
     void invalidateExpiredInvites();
 
     void filterOldInvites();
+
+    void sendNotificationForNewInvites();
 
     void invitePlayer(User inviter, User otherPlayer) throws UserAlreadySentInviteException;
 

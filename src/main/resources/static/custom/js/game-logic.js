@@ -5,7 +5,8 @@ $(function () {
     $('.ttt-box').on('click', function (e) {
 
         if ($(this).hasClass('sign-o') || $(this).hasClass('sign-x')) {
-            alert("Do Not Click Twice!");
+            var notificationElement = NotificationViewManager.createNotification('Do Not Click Twice!', notificationSeverity.DANGER);
+            NotificationViewManager.showNotification(notificationElement, 500);
             return;
         }
 

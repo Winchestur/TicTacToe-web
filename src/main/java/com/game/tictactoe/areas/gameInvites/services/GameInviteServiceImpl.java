@@ -6,6 +6,10 @@ import com.game.tictactoe.areas.gameInvites.entities.GameInvite;
 import com.game.tictactoe.areas.gameInvites.enums.GameInviteState;
 import com.game.tictactoe.areas.gameInvites.exceptions.UserAlreadySentInviteException;
 import com.game.tictactoe.areas.gameInvites.repositories.GameInviteRepository;
+import com.game.tictactoe.areas.pushNotifications.enums.NotificationSeverity;
+import com.game.tictactoe.areas.pushNotifications.messages.GameInviteMessage;
+import com.game.tictactoe.areas.pushNotifications.models.PushNotification;
+import com.game.tictactoe.areas.pushNotifications.services.NotificationService;
 import com.game.tictactoe.areas.users.entities.User;
 import com.game.tictactoe.constants.WebConstants;
 
@@ -18,25 +22,29 @@ public class GameInviteServiceImpl implements GameInviteService {
 
     private final GameInviteRepository repository;
 
-    public GameInviteServiceImpl(GameInviteRepository repository) {
+    private final NotificationService notificationService;
+
+    public GameInviteServiceImpl(GameInviteRepository repository, NotificationService notificationService) {
         this.repository = repository;
+        this.notificationService = notificationService;
     }
 
     @PostConstruct
     public void initTimers() {
-        Timer oldInvitesFilterTimer = new Timer(10000, e -> {
-            this.filterOldInvites();
-        });
+        Timer oldInvitesFilterTimer = new Timer(10000, e -> this.filterOldInvites());
+        Timer invalidateExpiredInvitesTimer = new Timer(2000, e -> this.invalidateExpiredInvites());
+        Timer notificationSenderTimer = new Timer(1000, e -> this.sendNotificationForNewInvites());
 
-        Timer invalidateExpiredInvitesTimer = new Timer(2000, e -> {
-            this.invalidateExpiredInvites();
-        });
-
-        this.startTimers(oldInvitesFilterTimer, invalidateExpiredInvitesTimer);
+        this.startTimers(oldInvitesFilterTimer, invalidateExpiredInvitesTimer, notificationSenderTimer);
     }
 
     @Override
-    public void invalidateExpiredInvites() {
+    public void acceptInvite(GameInvite gameInvite) {
+        //TODO
+    }
+
+    @Override
+    public synchronized void invalidateExpiredInvites() {
         List<GameInvite> expiredInvites = this.repository.findByInviteStateAndTimeLessThan(
                 new Date().getTime() - WebConstants.GAME_INVITE_MAX_ACCEPT_TIME_MILLIS,
                 GameInviteState.CREATED, GameInviteState.AWAITING
@@ -49,13 +57,46 @@ public class GameInviteServiceImpl implements GameInviteService {
     }
 
     @Override
-    public void invitePlayer(User inviter, User otherPlayer) throws UserAlreadySentInviteException {
+    public synchronized void sendNotificationForNewInvites() {
+        List<GameInvite> invites = this.repository.findByStates(GameInviteState.CREATED);
 
+        for (GameInvite invite : invites) {
+            this.notificationService.sendAsync(invite.getUserInvited(), new PushNotification(new GameInviteMessage(GameInviteState.AWAITING, invite.getId(), "Someone wants to play... Translate me")));
+            invite.setState(GameInviteState.AWAITING);
+            this.repository.merge(invite);
+        }
+    }
+
+    @Override
+    public void invitePlayer(User inviter, User otherPlayer) throws UserAlreadySentInviteException {
+        if (this.findSentInvite(inviter) != null) {
+            throw new UserAlreadySentInviteException("youHaveAnotherInviteAwaiting");
+        }
+
+        GameInvite oppositeGameInvite = this.repository.findByParticipants(otherPlayer, inviter);
+
+        //If the other player has invite, accept it instead of sending new one.
+        if (oppositeGameInvite != null) {
+            this.acceptInvite(oppositeGameInvite);
+            return;
+        }
+
+        GameInvite invite = new GameInvite();
+        invite.setUserInvited(otherPlayer);
+        invite.setUserInviter(inviter);
+
+        this.repository.persist(invite);
     }
 
     @Override
     public boolean cancelInvite(GameInvite invite) {
-        return false;
+        if (invite.getState() == GameInviteState.ACCEPTED || invite.getState() == GameInviteState.DECLINED) {
+            return false;
+        }
+
+        invite.setState(GameInviteState.DECLINED);
+        //TODO notification
+        return true;
     }
 
     @Override
@@ -70,7 +111,7 @@ public class GameInviteServiceImpl implements GameInviteService {
 
     @Override
     public GameInvite findSentInvite(User user) {
-        return this.repository.findSentInviteByUser(user);
+        return this.repository.findSentInviteByUser(user, GameInviteState.CREATED, GameInviteState.AWAITING);
     }
 
     @Override

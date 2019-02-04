@@ -2,7 +2,7 @@ package com.game.tictactoe.areas.pushNotifications.models;
 
 import com.game.tictactoe.areas.pushNotifications.enums.NotificationSeverity;
 import com.game.tictactoe.areas.pushNotifications.enums.NotificationType;
-
+import com.game.tictactoe.areas.pushNotifications.messages.PushMessage;
 
 public class PushNotification {
 
@@ -14,9 +14,17 @@ public class PushNotification {
 
     private NotificationType notificationType;
 
-    private Object message;
+    private PushMessage message;
 
-    public PushNotification(NotificationSeverity severity, NotificationType notificationType, Object message) {
+    public PushNotification(PushMessage message) {
+        this(NotificationType.NOTIFICATION, message);
+    }
+
+    public PushNotification(NotificationType notificationType, PushMessage message) {
+        this(NotificationSeverity.INFO, notificationType, message);
+    }
+
+    public PushNotification(NotificationSeverity severity, NotificationType notificationType, PushMessage message) {
         this.severity = severity;
         this.notificationType = notificationType;
         this.message = message;

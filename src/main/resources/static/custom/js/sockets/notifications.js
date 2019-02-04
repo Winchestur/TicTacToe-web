@@ -17,6 +17,7 @@ $(function () {
 
     var notificationTypeHandler = {
         GAME_INVITE: function (notification) {
+            console.log(notification);
             var notificationElement = NotificationViewManager.createNotification(notification.message + ' wants to play with you!',
                 notificationSeverity[notification.severity],
                 function (accept) {
@@ -29,7 +30,7 @@ $(function () {
             NotificationViewManager.showNotification(notificationElement, 10000)
         },
         NOTIFICATION: function (notification) {
-            var notificationElement = NotificationViewManager.createNotification(notification.message, notificationSeverity[notification.severity]);
+            var notificationElement = NotificationViewManager.createNotification(notification.message.message, notificationSeverity[notification.severity]);
 
             NotificationViewManager.showNotification(notificationElement, 10000);
         }
@@ -37,5 +38,6 @@ $(function () {
 
     notificationManager.onNotificationCallback = function (notification) {
         notificationTypeHandler[notification.notificationType](notification);
+
     }
 });

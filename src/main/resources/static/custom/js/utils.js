@@ -23,6 +23,14 @@ var utils = {
         } while (document.getElementById(id) != null);
 
         return id;
+    },
+
+    translate: function (textOrKey) {
+        if (locale[textOrKey]) {
+            return locale[textOrKey];
+        }
+
+        return textOrKey;
     }
 };
 

@@ -2,7 +2,7 @@ package com.game.tictactoe.areas.pushNotifications.services;
 
 import com.cyecize.summer.common.annotations.PostConstruct;
 import com.cyecize.summer.common.annotations.Service;
-import com.game.tictactoe.areas.pushNotifications.models.Pair;
+import com.game.tictactoe.utils.Pair;
 import com.game.tictactoe.areas.pushNotifications.models.PushNotification;
 import com.game.tictactoe.areas.pushNotifications.sockets.NotificationsWebSocketServer;
 import com.game.tictactoe.areas.users.entities.User;
